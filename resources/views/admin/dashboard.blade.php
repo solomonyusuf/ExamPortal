@@ -1,5 +1,25 @@
 @extends('layouts.admin_layout')
 
+<?php
+    //--student-------------------------
+   $students = \App\Models\User::where('role','student')->count();
+   $new_students = \App\Models\User::where('role','student')->where('created_at','>', \Carbon\Carbon::now()->subDays(3))->count();
+
+   //--exams-------------------------
+  $concluded = \App\Models\Quiz::where('start_time','<', \Carbon\Carbon::now()->subHours(3))->count();
+  $ongoing = \App\Models\Quiz::where('start_time','>', \Carbon\Carbon::now()->subHours(2))->count();
+
+  //---classroom-----------------------
+  $classroom = \App\Models\StudentClass::count();
+  $new_classroom = \App\Models\StudentClass::where('created_at', '<', \Carbon\Carbon::now()->subDays(3))->count();
+
+  //---users-----------------
+  $users = \App\Models\User::where('created_at', '<', \Carbon\Carbon::now()->subDays(3))->count();
+  $staffs = \App\Models\User::where('role', '<', 'staff')->count();
+  $locked = \App\Models\User::where('locked', true)->count();
+  $today = \App\Models\Quiz::where('start_time','=', \Carbon\Carbon::now()->toDateTime())->count();
+
+?>
     <!-- ============================================================== -->
     <!-- Start right Content here -->
     <!-- ============================================================== -->
@@ -39,13 +59,13 @@
                                                 <div class="flex-shrink-0">
                                                     <h5 class="text-success fs-14 mb-0">
                                                         <i class="ri-arrow-right-up-line fs-13 align-middle"></i>
-                                                        +16.24 %
+                                                        +{{number_format($new_students)}}
                                                     </h5>
                                                 </div>
                                             </div>
                                             <div class="d-flex align-items-end justify-content-between mt-4">
                                                 <div>
-                                                    <h4 class="fs-22 fw-semibold ff-secondary mb-4">$<span class="counter-value" data-target="559.25">0</span>k
+                                                    <h4 class="fs-22 fw-semibold ff-secondary mb-4"><span class="counter-value" data-target="{{number_format($students)}}">0</span>
                                                     </h4>
 
                                                 </div>
@@ -68,16 +88,10 @@
                                                     <p class="text-uppercase fw-medium text-muted text-truncate mb-0">
                                                        Concluded Exams</p>
                                                 </div>
-                                                <div class="flex-shrink-0">
-                                                    <h5 class="text-danger fs-14 mb-0">
-                                                        <i class="ri-arrow-right-down-line fs-13 align-middle"></i>
-                                                        -3.57 %
-                                                    </h5>
-                                                </div>
                                             </div>
                                             <div class="d-flex align-items-end justify-content-between mt-4">
                                                 <div>
-                                                    <h4 class="fs-22 fw-semibold ff-secondary mb-4"><span class="counter-value" data-target="36894">0</span></h4>
+                                                    <h4 class="fs-22 fw-semibold ff-secondary mb-4"><span class="counter-value" data-target="{{number_format($concluded)}}">0</span></h4>
 
                                                 </div>
                                                 <div class="avatar-sm flex-shrink-0">
@@ -99,16 +113,10 @@
                                                     <p class="text-uppercase fw-medium text-muted text-truncate mb-0">
                                                         Ongoing Exams</p>
                                                 </div>
-                                                <div class="flex-shrink-0">
-                                                    <h5 class="text-success fs-14 mb-0">
-                                                        <i class="ri-arrow-right-up-line fs-13 align-middle"></i>
-                                                        +29.08 %
-                                                    </h5>
-                                                </div>
                                             </div>
                                             <div class="d-flex align-items-end justify-content-between mt-4">
                                                 <div>
-                                                    <h4 class="fs-22 fw-semibold ff-secondary mb-4"><span class="counter-value" data-target="183.35">0</span>M
+                                                    <h4 class="fs-22 fw-semibold ff-secondary mb-4"><span class="counter-value" data-target="{{number_format($ongoing)}}">0</span>
                                                     </h4>
 
                                                 </div>
@@ -131,15 +139,10 @@
                                                     <p class="text-uppercase fw-medium text-muted text-truncate mb-0">
                                                        Classrooms</p>
                                                 </div>
-                                                <div class="flex-shrink-0">
-                                                    <h5 class="text-muted fs-14 mb-0">
-                                                        +0.00 %
-                                                    </h5>
-                                                </div>
                                             </div>
                                             <div class="d-flex align-items-end justify-content-between mt-4">
                                                 <div>
-                                                    <h4 class="fs-22 fw-semibold ff-secondary mb-4">$<span class="counter-value" data-target="165.89">0</span>k
+                                                    <h4 class="fs-22 fw-semibold ff-secondary mb-4"><span class="counter-value" data-target="{{number_format($classroom)}}">0</span>
                                                     </h4>
                                                 </div>
                                                 <div class="avatar-sm flex-shrink-0">
@@ -161,16 +164,10 @@
                                                     <p class="text-uppercase fw-medium text-muted text-truncate mb-0">
                                                         New Users</p>
                                                 </div>
-                                                <div class="flex-shrink-0">
-                                                    <h5 class="text-success fs-14 mb-0">
-                                                        <i class="ri-arrow-right-up-line fs-13 align-middle"></i>
-                                                        +16.24 %
-                                                    </h5>
-                                                </div>
                                             </div>
                                             <div class="d-flex align-items-end justify-content-between mt-4">
                                                 <div>
-                                                    <h4 class="fs-22 fw-semibold ff-secondary mb-4">$<span class="counter-value" data-target="559.25">0</span>k
+                                                    <h4 class="fs-22 fw-semibold ff-secondary mb-4"><span class="counter-value" data-target="{{number_format($users)}}">0</span>
                                                     </h4>
 
                                                 </div>
@@ -194,16 +191,11 @@
                                                     Staffs
                                                      </p>
                                                 </div>
-                                                <div class="flex-shrink-0">
-                                                    <h5 class="text-danger fs-14 mb-0">
-                                                        <i class="ri-arrow-right-down-line fs-13 align-middle"></i>
-                                                        -3.57 %
-                                                    </h5>
-                                                </div>
+
                                             </div>
                                             <div class="d-flex align-items-end justify-content-between mt-4">
                                                 <div>
-                                                    <h4 class="fs-22 fw-semibold ff-secondary mb-4"><span class="counter-value" data-target="36894">0</span></h4>
+                                                    <h4 class="fs-22 fw-semibold ff-secondary mb-4"><span class="counter-value" data-target="{{number_format($staffs)}}">0</span></h4>
 
                                                 </div>
                                                 <div class="avatar-sm flex-shrink-0">
@@ -225,16 +217,10 @@
                                                     <p class="text-uppercase fw-medium text-muted text-truncate mb-0">
                                                         Locked Accounts</p>
                                                 </div>
-                                                <div class="flex-shrink-0">
-                                                    <h5 class="text-success fs-14 mb-0">
-                                                        <i class="ri-arrow-right-up-line fs-13 align-middle"></i>
-                                                        +29.08 %
-                                                    </h5>
-                                                </div>
                                             </div>
                                             <div class="d-flex align-items-end justify-content-between mt-4">
                                                 <div>
-                                                    <h4 class="fs-22 fw-semibold ff-secondary mb-4"><span class="counter-value" data-target="183.35">0</span>M
+                                                    <h4 class="fs-22 fw-semibold ff-secondary mb-4"><span class="counter-value" data-target="{{number_format($locked)}}">0</span>
                                                     </h4>
 
                                                 </div>
@@ -257,15 +243,11 @@
                                                     <p class="text-uppercase fw-medium text-muted text-truncate mb-0">
                                                        Today Exams</p>
                                                 </div>
-                                                <div class="flex-shrink-0">
-                                                    <h5 class="text-muted fs-14 mb-0">
-                                                        +0.00 %
-                                                    </h5>
-                                                </div>
+
                                             </div>
                                             <div class="d-flex align-items-end justify-content-between mt-4">
                                                 <div>
-                                                    <h4 class="fs-22 fw-semibold ff-secondary mb-4">$<span class="counter-value" data-target="165.89">0</span>k
+                                                    <h4 class="fs-22 fw-semibold ff-secondary mb-4"><span class="counter-value" data-target="{{number_format($today)}}">0</span>
                                                     </h4>
                                                 </div>
                                                 <div class="avatar-sm flex-shrink-0">

@@ -117,8 +117,7 @@ class AdminController extends Controller
                 'a'=> $request->a,
                 'b'=> $request->b,
                 'c'=> $request->c,
-                'd'=> $request->d,
-                'point'=> $request->point
+                'd'=> $request->d
             ));
             toast('Update Sucessful', 'success');
         }

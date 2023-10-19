@@ -8,16 +8,16 @@
 <div class="main-content">
     <div class="page-content">
         <div class="container-fluid">
-        <div class="row">
-            <form class="card col-md-4" style="margin:3px;" method="post" action="{{route('update_exam')}}">
+
+            <form class="card col-md-12" style="margin:3px;" method="post" action="{{route('update_exam')}}">
                 @csrf
                 <div class="card-header align-items-center d-flex">
                     <h4 class="card-title mb-0 flex-grow-1">Update Exam</h4>
                 </div><!-- end card header -->
                 <div class="card-body">
                     <div class="live-preview">
-                        <div class="gy-4">
-                            <div>
+                        <div class="row gy-4">
+                            <div class="col-xxl-3 col-md-6">
                                 <div>
                                     <label for="basiInput" class="form-label">Name</label>
                                     <input required type="text" value="{{$exam->name}}" name="name" class="form-control" id="basiInput">
@@ -25,28 +25,28 @@
                                 </div>
                             </div>
                             <!--end col-->
-                            <div>
+                            <div class="col-xxl-3 col-md-6">
                                 <div>
                                     <label for="labelInput" class="form-label">Points(per question)</label>
                                     <input required type="number" value="{{$exam->points}}" name="points" class="form-control" id="labelInput">
                                 </div>
                             </div>
                             <!--end col-->
-                            <div>
+                            <div class="col-xxl-3 col-md-6">
                                 <div>
                                     <label for="placeholderInput" class="form-label">Total Score Expected</label>
                                     <input required type="text" value="{{$exam->total_point}}" name="total_point" class="form-control" id="placeholderInput" placeholder="eg 40/100">
                                 </div>
                             </div>
                             <!--end col-->
-                            <div>
+                            <div class="col-xxl-3 col-md-6">
                                 <div>
                                     <label for="valueInput" class="form-label">Duration(in minutes)</label>
                                     <input required  type="text" value="{{$exam->duration}}" name="duration" class="form-control" id="valueInput" >
                                 </div>
                             </div>
                             <!--end col-->
-                            <div>
+                            <div class="col-xxl-3 col-md-6">
                                 <label for="exampleDataList" class="form-label">Class</label>
                                 <select name="class_id" class="form-control" id="datalistOptions">
                                     @foreach(\App\Models\StudentClass::get() as $data)
@@ -59,7 +59,7 @@
                                 </select>
                             </div>
                             <!--end col-->
-                            <div>
+                            <div class="col-xxl-3 col-md-6">
                                 <div>
                                     <label for="readonlyInput" class="form-label">Start Time</label>
                                     <input required type="datetime-local" value="{{$exam->start_time}}" name="start_time" class="form-control" id="readonlyInput">
@@ -73,7 +73,7 @@
                 </div>
                 <!-- container-fluid -->
             </form>
-            <div class="card col-sm-6" >
+            <div class="card col-sm-12" >
                 @csrf
                 <div class="card-header align-items-center d-flex">
                     <h4 class="card-title mb-0 flex-grow-1">Questions</h4>
@@ -166,8 +166,8 @@
                                                    <p><strong>(D)&nbsp;{{$question->d}}</strong></p>
                                                 </div>
                                             </div>
-                                            <strong> Answer : {{$question->correct}}</strong><br/>
-                                            <a class="btn btn-primary btn-sm">Edit</a>
+                                            <strong class="form-control"> Answer : {{$question->correct}}</strong><br/>
+                                            <a href="{{route('edit_question', $question->id)}}" class="btn btn-primary btn-sm">Edit</a>
                                             <a href="{{route('delete_question', $question->id)}}" class="btn btn-danger btn-sm">Delete</a>
                                         </div>
 
@@ -178,7 +178,7 @@
                 </div>
                 <!-- container-fluid -->
             </div>
-        </div>
+
             <!-- End Page-content -->
         </div>
     </div>

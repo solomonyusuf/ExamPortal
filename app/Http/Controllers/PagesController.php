@@ -41,6 +41,10 @@ class PagesController extends Controller
    {
        return view('admin.exams.edit', ['id'=> $id]);
    }
+   public function edit_question($id)
+   {
+       return view('admin.exams.edit_question', ['id'=> $id]);
+   }
    public function result($id)
    {
        return view('admin.exams.result', ['id'=> $id]);

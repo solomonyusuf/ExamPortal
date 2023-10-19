@@ -35,6 +35,7 @@ Route::middleware([])->group(function () {
     Route::get('/scheduled/exams', [PagesController::class, 'scheduled_exams'])->name('scheduled_exams');
     Route::get('/add/exams', [PagesController::class, 'add_exams'])->name('add_exams');
     Route::get('/edit/exams/{id}', [PagesController::class, 'edit_exams'])->name('edit_exams');
+    Route::get('/edit/question/{id}', [PagesController::class, 'edit_question'])->name('edit_question');
     Route::get('/result/exams/{id}', [PagesController::class, 'result'])->name('result');
 
     //USERS
@@ -60,7 +61,7 @@ Route::middleware([])->group(function () {
 
     //QUESTIONS
     Route::post('/add/question', [AdminController::class, 'add_question'])->name('add_question');
-    Route::post('/update/question/{id}', [AdminController::class, 'update_question'])->name('update_question');
+    Route::post('/update/question/', [AdminController::class, 'update_question'])->name('update_question');
     Route::get('/delete/question/{id}', [AdminController::class, 'delete_question'])->name('delete_question');
 
     //STAFF
