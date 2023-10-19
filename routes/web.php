@@ -1,0 +1,90 @@
+<?php
+
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\PagesController;
+use Illuminate\Support\Facades\Route;
+
+/*
+|--------------------------------------------------------------------------
+| Web Routes
+|--------------------------------------------------------------------------
+|
+| Here is where you can register web routes for your application. These
+| routes are loaded by the RouteServiceProvider and all of them will
+| be assigned to the "web" middleware group. Make something great!
+|
+*/
+
+
+Route::get('/', function () {
+    return view('welcome');
+});
+
+
+//ADMIN
+Route::get('/management/login', [PagesController::class, 'admin_login']);
+Route::post('/admin/login', [AdminController::class, 'post_admin_login']);
+
+
+Route::middleware([])->group(function () {
+    //------PAGES--------------------------------------
+    Route::get('/dashboard', [PagesController::class, 'admin_dashboard'])->name('admin_dashboard');
+    //EXAM
+    Route::get('/ongoing/exams', [PagesController::class, 'ongoing_exams'])->name('ongoing_exams');
+    Route::get('/concluded/exams', [PagesController::class, 'concluded_exams'])->name('concluded_exams');
+    Route::get('/scheduled/exams', [PagesController::class, 'scheduled_exams'])->name('scheduled_exams');
+    Route::get('/add/exams', [PagesController::class, 'add_exams'])->name('add_exams');
+    Route::get('/edit/exams/{id}', [PagesController::class, 'edit_exams'])->name('edit_exams');
+    Route::get('/result/exams/{id}', [PagesController::class, 'result'])->name('result');
+
+    //USERS
+    Route::get('/staffs', [PagesController::class, 'staffs'])->name('staffs');
+    Route::get('/students', [PagesController::class, 'students'])->name('students');
+    Route::get('/create/user', [PagesController::class, 'create_user'])->name('create_user');
+    Route::get('/edit/user/{id}', [PagesController::class, 'edit_user'])->name('edit_user');
+    Route::get('/locked', [PagesController::class, 'locked'])->name('locked');
+
+    //CLASSROOMS
+    Route::get('/classrooms', [PagesController::class, 'classrooms'])->name('classrooms');
+    Route::get('/create/classrooms', [PagesController::class, 'create_classrooms'])->name('create_class');
+    Route::get('/edit/classroom/{id}', [PagesController::class, 'edit_classrooms'])->name('edit_class');
+ //--------------------------------------------------------------------------------------------------------------------------------
+
+    //---- ----REQUESTS::
+    // EDITOR
+    Route::post('/upload-image',[AdminController::class, 'admin_upload'])->name('uploadimage');
+    //EXAM
+    Route::post('/add/exam', [AdminController::class, 'add_exam'])->name('add_exam');
+    Route::post('/update/exam', [AdminController::class, 'update_exam'])->name('update_exam');
+    Route::get('/delete/exam/{id}', [AdminController::class, 'delete_exam'])->name('delete_exam');
+
+    //QUESTIONS
+    Route::post('/add/question', [AdminController::class, 'add_question'])->name('add_question');
+    Route::post('/update/question/{id}', [AdminController::class, 'update_question'])->name('update_question');
+    Route::get('/delete/question/{id}', [AdminController::class, 'delete_question'])->name('delete_question');
+
+    //STAFF
+    Route::post('/add/user', [AdminController::class, 'add_user'])->name('add_user');
+    Route::post('/update/user/{id}', [AdminController::class, 'update_user'])->name('update_user');
+    Route::get('/delete/user/{id}', [AdminController::class, 'delete_user'])->name('delete_user');
+
+    //UNLOCK ACCOUNT
+    Route::post('/unlock/acct/{id}', [AdminController::class, 'unlock_student'])->name('unlock_student');
+
+
+    //CLASSROOM
+    Route::post('/add/classroom', [AdminController::class, 'add_classroom'])->name('add_classroom');
+    Route::post('/update/classroom/{id}', [AdminController::class, 'update_classroom'])->name('update_classroom');
+    Route::get('/delete/classroom/{id}', [AdminController::class, 'delete_classroom'])->name('delete_classroom');
+
+});
+
+
+//STUDENT
+Route::middleware([])->group(function () {
+    Route::get('/exams', [PagesController::class, 'current_exam']);
+
+
+    // REQUESTS
+});
+
