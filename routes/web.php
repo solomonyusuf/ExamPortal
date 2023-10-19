@@ -75,7 +75,7 @@ Route::middleware([])->group(function () {
 
     //CLASSROOM
     Route::post('/add/classroom', [AdminController::class, 'add_classroom'])->name('add_classroom');
-    Route::post('/update/classroom/{id}', [AdminController::class, 'update_classroom'])->name('update_classroom');
+    Route::post('/update/classroom', [AdminController::class, 'update_classroom'])->name('update_classroom');
     Route::get('/delete/classroom/{id}', [AdminController::class, 'delete_classroom'])->name('delete_classroom');
 
 });
