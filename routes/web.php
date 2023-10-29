@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\PagesController;
+use App\Http\Controllers\StudentController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,15 +19,17 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('welcome');
+Route::post('/student-login', [StudentController::class, 'student_login'])->name('student_login');
 
 
 //ADMIN
 Route::get('/management/login', [PagesController::class, 'admin_login']);
-Route::post('/admin/login', [AdminController::class, 'post_admin_login']);
+Route::post('/admin/login', [AdminController::class, 'post_admin_login'])->name('post_admin_login');
+Route::get('/logout', [AdminController::class, 'logout'])->name('logout');
 
 
-Route::middleware([])->group(function () {
+Route::middleware(['auth:sanctum','user_access'])->group(function () {
     //------PAGES--------------------------------------
     Route::get('/dashboard', [PagesController::class, 'admin_dashboard'])->name('admin_dashboard');
     //EXAM
@@ -66,11 +69,11 @@ Route::middleware([])->group(function () {
 
     //STAFF
     Route::post('/add/user', [AdminController::class, 'add_user'])->name('add_user');
-    Route::post('/update/user/{id}', [AdminController::class, 'update_user'])->name('update_user');
+    Route::post('/update/user', [AdminController::class, 'update_user'])->name('update_user');
     Route::get('/delete/user/{id}', [AdminController::class, 'delete_user'])->name('delete_user');
 
     //UNLOCK ACCOUNT
-    Route::post('/unlock/acct/{id}', [AdminController::class, 'unlock_student'])->name('unlock_student');
+    Route::get('/unlock/acct/{id}', [AdminController::class, 'unlock_student'])->name('unlock_student');
 
 
     //CLASSROOM
@@ -82,10 +85,11 @@ Route::middleware([])->group(function () {
 
 
 //STUDENT
-Route::middleware([])->group(function () {
-    Route::get('/exams', [PagesController::class, 'current_exam']);
-
-
+Route::middleware(['auth:sanctum'])->group(function () {
+    Route::get('/exams', [PagesController::class, 'current_exam'])->name('current_exam');
+    Route::get('/exam-locked', [PagesController::class, 'exam_locked'])->name('exam_locked');
+    Route::get('/no-exam', [PagesController::class, 'no_exam'])->name('no_exam');
+    Route::get('/finished', [PagesController::class, 'finished'])->name('finished');
     // REQUESTS
 });
 

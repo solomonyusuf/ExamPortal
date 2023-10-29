@@ -26,8 +26,12 @@
     <link href="{{asset('admin/assets/css/app.min.css')}}" rel="stylesheet" type="text/css" />
     <!-- custom Css-->
     <link href="{{asset('admin/assets/css/custom.min.css')}}" rel="stylesheet" type="text/css" />
-{{--    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.3/css/bulma.min.css">--}}
-{{--    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bulma.min.css">--}}
+    <!-- dropzone css -->
+    <link rel="stylesheet" href="{{asset('admin/assets/libs/dropzone/dropzone.css')}}" type="text/css" />
+
+    <!-- Filepond css -->
+    <link rel="stylesheet" href="{{asset('admin/assets/libs/filepond/filepond.min.css')}}" type="text/css" />
+    <link rel="stylesheet" href="{{asset('admin/assets/libs/filepond-plugin-image-preview/filepond-plugin-image-preview.min.css')}}">
     <link rel="stylesheet" href="//cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
 
@@ -35,201 +39,208 @@
 </head>
 
 <body>
-<header id="page-topbar">
-    <div class="layout-width">
-        <div class="navbar-header">
-            <div class="d-flex">
-                <!-- LOGO -->
-                <div class="navbar-brand-box horizontal-logo" style="margin-top:15px;">
-                    <a href="" class="logo logo-dark mb-4">
+<?php
+   $user = auth()->user();
+?>
+@if($user != null)
+    <header id="page-topbar">
+        <div class="layout-width">
+            <div class="navbar-header">
+                <div class="d-flex">
+                    <!-- LOGO -->
+                    <div class="navbar-brand-box horizontal-logo" style="margin-top:15px;">
+                        <a href="" class="logo logo-dark mb-4">
                         <span class="logo-sm">
                             <img src="{{asset('/admin/assets/images/logo-sm.png')}}" alt="" height="22">
                         </span>
-                        <span class="logo-lg">
+                            <span class="logo-lg">
                             <img src="{{asset('/admin/assets/images/logo-dark.png')}}" alt="" height="17">
                         </span>
-                    </a>
+                        </a>
 
-                    <a href="index.html" class="logo logo-light mb-4">
+                        <a href="{{route('admin_dashboard')}}" class="logo logo-light mb-4">
                         <span class="logo-sm">
-                            <img src="{{asset('/admin/assets/images/logo-sm.png')}}" alt="" height="22">
-                        </span>
-                        <span class="logo-lg">
-                            <img src="{{asset('/admin/assets/images/logo-light.png')}}" alt="" height="17">
-                        </span>
-                    </a>
-                </div>
+                                   <img style="height:50px;" src="{{asset('assets/images/quiz.png')}}" alt="BeRifma">
 
-                <button type="button" class="btn btn-sm px-3 fs-16 header-item vertical-menu-btn topnav-hamburger" id="topnav-hamburger-icon">
+                            </span>
+                            <span class="logo-lg">
+                               <img style="height:50px;" src="{{asset('assets/images/quiz.png')}}" alt="BeRifma">
+                        </span>
+                        </a>
+                    </div>
+
+                    <button type="button" class="btn btn-sm px-3 fs-16 header-item vertical-menu-btn topnav-hamburger" id="topnav-hamburger-icon">
                     <span class="hamburger-icon">
                         <span></span>
                         <span></span>
                         <span></span>
                     </span>
-                </button>
-
-
-            </div>
-
-            <div class="d-flex align-items-center">
-
-                <div class="dropdown d-md-none topbar-head-dropdown header-item">
-                    <button type="button" class="btn btn-icon btn-topbar btn-ghost-secondary rounded-circle" id="page-header-search-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="bx bx-search fs-22"></i>
                     </button>
-                    <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end p-0" aria-labelledby="page-header-search-dropdown">
-                        <form class="p-3">
-                            <div class="form-group m-0">
-                                <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="Search ..." aria-label="Recipient's username">
-                                    <button class="btn btn-primary" type="submit"><i class="mdi mdi-magnify"></i></button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
+
+
                 </div>
 
-                <div class="dropdown ms-sm-3 header-item topbar-user">
-                    <button type="button" class="btn" id="page-header-user-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <div class="d-flex align-items-center">
+
+                    <div class="dropdown d-md-none topbar-head-dropdown header-item">
+                        <button type="button" class="btn btn-icon btn-topbar btn-ghost-secondary rounded-circle" id="page-header-search-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="bx bx-search fs-22"></i>
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end p-0" aria-labelledby="page-header-search-dropdown">
+                            <form class="p-3">
+                                <div class="form-group m-0">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" placeholder="Search ..." aria-label="Recipient's username">
+                                        <button class="btn btn-primary" type="submit"><i class="mdi mdi-magnify"></i></button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="dropdown ms-sm-3 header-item topbar-user">
+                        <button type="button" class="btn" id="page-header-user-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <span class="d-flex align-items-center">
-                            <img class="rounded-circle header-profile-user" src="{{asset('/admin/assets/images/users/avatar-1.jpg')}}" alt="Header Avatar">
+                            <img class="rounded-circle header-profile-user" src="{{asset($user->image)}}" alt="Header Avatar">
                             <span class="text-start ms-xl-2">
-                                <span class="d-none d-xl-inline-block ms-1 fw-medium user-name-text">Anna Adame</span>
-                                <span class="d-none d-xl-block ms-1 fs-12 user-name-sub-text">Founder</span>
+                                <span class="d-none d-xl-inline-block ms-1 fw-medium user-name-text">{{$user->first_name.' '.$user->last_name}}</span>
+                                <span class="d-none d-xl-block ms-1 fs-12 user-name-sub-text">{{$user->role}}</span>
                             </span>
                         </span>
-                    </button>
-                    <div class="dropdown-menu dropdown-menu-end">
-                        <!-- item-->
-                        <h6 class="dropdown-header">Welcome Anna!</h6>
-                        <a class="dropdown-item" href="pages-profile.html"><i class="mdi mdi-account-circle text-muted fs-16 align-middle me-1"></i> <span class="align-middle">Profile</span></a>
-                        <a class="dropdown-item" href="auth-logout-basic.html"><i class="mdi mdi-logout text-muted fs-16 align-middle me-1"></i> <span class="align-middle" data-key="t-logout">Logout</span></a>
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-end">
+                            <!-- item-->
+                            <h6 class="dropdown-header">Welcome {{$user->first_name}}!</h6>
+                            <a class="dropdown-item" href="{{route('edit_user', $user->id)}}"><i class="mdi mdi-account-circle text-muted fs-16 align-middle me-1"></i> <span class="align-middle">Profile</span></a>
+                            <a class="dropdown-item" href="{{route('logout')}}"><i class="mdi mdi-logout text-muted fs-16 align-middle me-1"></i> <span class="align-middle" data-key="t-logout">Logout</span></a>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</header>
-
-<!-- ========== App Menu ========== -->
-<div class="app-menu navbar-menu">
-    <!-- LOGO -->
-    <div class="navbar-brand-box">
-        <!-- Dark Logo-->
-        <a href="index.html" class="logo logo-dark">
+    </header>
+    <!-- ========== App Menu ========== -->
+    <div class="app-menu navbar-menu">
+        <!-- LOGO -->
+        <div class="navbar-brand-box">
+            <!-- Dark Logo-->
+            <a href="{{route('admin_dashboard')}}" class="logo logo-dark">
                     <span class="logo-sm">
-                        <img src="assets/images/logo-sm.png" alt="" height="22">
+                        <img style="height:50px;" src="{{asset('assets/images/quiz.png')}}" alt="BeRifma">
                     </span>
-            <span class="logo-lg">
-                        <img src="assets/images/logo-dark.png" alt="" height="17">
+                <span class="logo-lg">
+ <img style="height:50px;" src="{{asset('assets/images/quiz.png')}}" alt="BeRifma">
                     </span>
-        </a>
-        <!-- Light Logo-->
-        <a href="index.html" class="logo logo-light">
+            </a>
+            <!-- Light Logo-->
+            <a href="{{route('admin_dashboard')}}" class="logo logo-light">
                     <span class="logo-sm">
-                        <img src="assets/images/logo-sm.png" alt="" height="22">
+                        <img style="height:50px;" src="{{asset('assets/images/quiz.png')}}" alt="BeRifma">
                     </span>
-            <span class="logo-lg">
-                        <img src="assets/images/logo-light.png" alt="" height="17">
+                <span class="logo-lg">
+                         <img style="height:50px;" src="{{asset('assets/images/quiz.png')}}" alt="BeRifma">
                     </span>
-        </a>
-        <button type="button" class="btn btn-sm p-0 fs-20 header-item float-end btn-vertical-sm-hover" id="vertical-hover">
-            <i class="ri-record-circle-line"></i>
-        </button>
-    </div>
-
-    <div id="scrollbar">
-        <div class="container-fluid">
-
-            <div id="two-column-menu">
-            </div>
-            <ul class="navbar-nav" id="navbar-nav">
-                <li class="menu-title"><span data-key="t-menu">Menu</span></li>
-                <li class="nav-item">
-                    <a class="nav-link menu-link" href="{{route('admin_dashboard')}}"  aria-expanded="false" aria-controls="sidebarDashboards">
-                        <i class="bx bxs-dashboard"></i> <span data-key="t-dashboards">Dashboard</span>
-                    </a>
-                </li> <!-- end Dashboard Menu -->
-                <li class="nav-item">
-                    <a class="nav-link menu-link" href="#sidebarApps" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarApps">
-                        <i class="bx bx-layer"></i> <span data-key="t-apps">Exams</span>
-                    </a>
-                    <div class="collapse menu-dropdown" id="sidebarApps">
-                        <ul class="nav nav-sm flex-column">
-                            <li class="nav-item">
-                                <a href="{{route('ongoing_exams')}}" class="nav-link" data-key="t-calendar">Ongoing Exams </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{{route('concluded_exams')}}" class="nav-link" data-key="t-chat"> Concluded Exams </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{{route('scheduled_exams')}}" class="nav-link" data-key="t-chat"> Scheduled Exams </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{{route('add_exams')}}" class="nav-link" data-key="t-chat"> Add Exam </a>
-                            </li>
-
-                        </ul>
-                    </div>
-                </li>
-
-                <li class="menu-title"><i class="ri-more-fill"></i> <span data-key="t-pages">Pages</span></li>
-
-                <li class="nav-item">
-                    <a class="nav-link menu-link" href="#sidebarAuth" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarAuth">
-                        <i class="bx bx-user-circle"></i> <span data-key="t-authentication">Users & Student</span>
-                    </a>
-                    <div class="collapse menu-dropdown" id="sidebarAuth">
-                        <ul class="nav nav-sm flex-column">
-                            <li class="nav-item">
-                                  <a href="{{route('staffs')}}" class="nav-link" data-key="t-basic"> All Staff </a>
-                            </li>
-
-                            <li class="nav-item">
-                              <a href="{{route('students')}}" class="nav-link" data-key="t-basic"> All Student </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{{route('create_user')}}" class="nav-link" data-key="t-signin"> Add User
-                                </a>
-
-                            </li>
-
-
-
-                            <li class="nav-item">
-                                <a href="{{route('locked')}}" class="nav-link"  role="button" aria-expanded="false" aria-controls="sidebarchangePass" data-key="t-password-create">
-                                    Locked Accounts
-                                </a>
-                            </li>
-
-                        </ul>
-                    </div>
-                </li>
-
-                <li class="nav-item">
-                    <a class="nav-link menu-link" href="#sidebarUI" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarUI">
-                        <i class="bx bx-notepad"></i> <span data-key="t-base-ui">Classrooms</span>
-                    </a>
-                    <div class="collapse menu-dropdown mega-dropdown-menu" id="sidebarUI">
-                        <ul class="nav nav-sm flex-column">
-                            <li class="nav-item">
-                                <a href="{{route('classrooms')}}" class="nav-link" data-key="t-alerts">All Classrooms</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{{route('create_class')}}" class="nav-link" data-key="t-badges">Add Classroom</a>
-                            </li>
-
-                        </ul>
-                    </div>
-                </li>
-
-            </ul>
+            </a>
+            <button type="button" class="btn btn-sm p-0 fs-20 header-item float-end btn-vertical-sm-hover" id="vertical-hover">
+                <i class="ri-record-circle-line"></i>
+            </button>
         </div>
-        <!-- Sidebar -->
-    </div>
 
-    <div class="sidebar-background"></div>
-</div>
+        <div id="scrollbar">
+            <div class="container-fluid">
+
+                <div id="two-column-menu">
+                </div>
+                <ul class="navbar-nav" id="navbar-nav">
+                    <li class="menu-title"><span data-key="t-menu">Menu</span></li>
+                    <li class="nav-item">
+                        <a class="nav-link menu-link" href="{{route('admin_dashboard')}}"  aria-expanded="false" aria-controls="sidebarDashboards">
+                            <i class="bx bxs-dashboard"></i> <span data-key="t-dashboards">Dashboard</span>
+                        </a>
+                    </li> <!-- end Dashboard Menu -->
+                    <li class="nav-item">
+                        <a class="nav-link menu-link" href="#sidebarApps" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarApps">
+                            <i class="bx bx-layer"></i> <span data-key="t-apps">Exams</span>
+                        </a>
+                        <div class="collapse menu-dropdown" id="sidebarApps">
+                            <ul class="nav nav-sm flex-column">
+                                <li class="nav-item">
+                                    <a href="{{route('ongoing_exams')}}" class="nav-link" data-key="t-calendar">Ongoing Exams </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{route('concluded_exams')}}" class="nav-link" data-key="t-chat"> Concluded Exams </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{route('scheduled_exams')}}" class="nav-link" data-key="t-chat"> Scheduled Exams </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{route('add_exams')}}" class="nav-link" data-key="t-chat"> Add Exam </a>
+                                </li>
+
+                            </ul>
+                        </div>
+                    </li>
+
+                    <li class="menu-title"><i class="ri-more-fill"></i> <span data-key="t-pages">Pages</span></li>
+
+                    <li class="nav-item">
+                        <a class="nav-link menu-link" href="#sidebarAuth" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarAuth">
+                            <i class="bx bx-user-circle"></i> <span data-key="t-authentication">Users & Student</span>
+                        </a>
+                        <div class="collapse menu-dropdown" id="sidebarAuth">
+                            <ul class="nav nav-sm flex-column">
+                                <li class="nav-item">
+                                    <a href="{{route('staffs')}}" class="nav-link" data-key="t-basic"> All Staff </a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a href="{{route('students')}}" class="nav-link" data-key="t-basic"> All Student </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{route('create_user')}}" class="nav-link" data-key="t-signin"> Add User
+                                    </a>
+
+                                </li>
+
+
+
+                                <li class="nav-item">
+                                    <a href="{{route('locked')}}" class="nav-link"  role="button" aria-expanded="false" aria-controls="sidebarchangePass" data-key="t-password-create">
+                                        Locked Accounts
+                                    </a>
+                                </li>
+
+                            </ul>
+                        </div>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link menu-link" href="#sidebarUI" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarUI">
+                            <i class="bx bx-notepad"></i> <span data-key="t-base-ui">Classrooms</span>
+                        </a>
+                        <div class="collapse menu-dropdown mega-dropdown-menu" id="sidebarUI">
+                            <ul class="nav nav-sm flex-column">
+                                <li class="nav-item">
+                                    <a href="{{route('classrooms')}}" class="nav-link" data-key="t-alerts">All Classrooms</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{route('create_class')}}" class="nav-link" data-key="t-badges">Add Classroom</a>
+                                </li>
+
+                            </ul>
+                        </div>
+                    </li>
+
+                </ul>
+            </div>
+            <!-- Sidebar -->
+        </div>
+
+        <div class="sidebar-background"></div>
+    </div>
+@endif
+
+
 <!-- Left Sidebar End -->
 <!-- Vertical Overlay-->
 <div class="vertical-overlay"></div>
@@ -999,6 +1010,16 @@
     button{margin:3px;}
 </style>
 <!-- JAVASCRIPT -->
+<script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.4.1/js/dataTables.buttons.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.html5.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.print.min.js"></script>
+
+<script src="{{asset('admin/assets/js/pages/form-file-upload.init.js')}}"></script>
 <script src="{{asset('admin/assets/libs/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
 <script src="{{asset('admin/assets/libs/simplebar/simplebar.min.js')}}"></script>
 <script src="{{asset('admin/assets/libs/node-waves/waves.min.js')}}"></script>
@@ -1017,6 +1038,14 @@
 
 <!-- Dashboard init -->
 <script src="{{asset('admin/assets/js/pages/dashboard-ecommerce.init.js')}}"></script>
+<!-- dropzone min -->
+<script src="{{asset('admin/assets/libs/dropzone/dropzone-min.js')}}"></script>
+<!-- filepond js -->
+<script src="{{asset('admin/assets/libs/filepond/filepond.min.js')}}"></script>
+<script src="{{asset('admin/assets/libs/filepond-plugin-image-preview/filepond-plugin-image-preview.min.js')}}"></script>
+<script src="{{asset('admin/assets/libs/filepond-plugin-file-validate-size/filepond-plugin-file-validate-size.min.js')}}"></script>
+<script src="{{asset('admin/assets/libs/filepond-plugin-image-exif-orientation/filepond-plugin-image-exif-orientation.min.js')}}"></script>
+<script src="{{asset('admin/assets/libs/filepond-plugin-file-encode/filepond-plugin-file-encode.min.js')}}"></script>
 
 <!-- App js -->
 <script src="{{asset('admin/assets/js/app.js')}}"></script>
@@ -1027,14 +1056,6 @@
         filebrowserUploadMethod: 'form'
     });
 </script>
-<script src="https://code.jquery.com/jquery-3.7.0.js"></script>
-<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
-<script src="https://cdn.datatables.net/buttons/2.4.1/js/dataTables.buttons.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
-<script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.html5.min.js"></script>
-<script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.print.min.js"></script>
 <script>
     new DataTable('#table', {
         dom: 'Bfrtip',

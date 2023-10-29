@@ -24,7 +24,7 @@ use Illuminate\Database\Eloquent\Model;
 class StudentClass extends Model
 {
     use HasUuids, HasFactory;
-	protected $table = 'student_class';
+	protected $table = 'class';
 	public $incrementing = false;
 
 	protected $fillable = [

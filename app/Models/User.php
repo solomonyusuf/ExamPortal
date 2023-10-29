@@ -22,6 +22,7 @@ use Laravel\Sanctum\HasApiTokens;
  * @property string|null $last_name
  * @property string|null $middle_name
  * @property string|null $exam_access
+ * @property string $student_id
  * @property string $class_id
  * @property string $email
  * @property Carbon|null $email_verified_at
@@ -34,11 +35,11 @@ use Laravel\Sanctum\HasApiTokens;
  *
  * @package App\Models
  */
-class User extends Model
+class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, HasUuids, Notifiable;
 	protected $table = 'users';
-	protected $primaryKey = 'email';
+	protected $primaryKey = 'id';
 	public $incrementing = false;
 
 	protected $casts = [
@@ -59,7 +60,9 @@ class User extends Model
 		'middle_name',
 		'exam_access',
 		'class_id',
+		'student_id',
 		'email_verified_at',
+		'email',
 		'password',
 		'role',
 		'locked',

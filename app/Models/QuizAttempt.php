@@ -17,7 +17,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $id
  * @property string $quiz_id
  * @property string $users_id
- * @property bool $locked
+ * @property int $seconds
  * @property Carbon $start_time
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
@@ -30,7 +30,6 @@ class QuizAttempt extends Model
 	public $incrementing = false;
 
 	protected $casts = [
-		'locked' => 'bool',
 		'start_time' => 'datetime'
 	];
 
@@ -38,7 +37,7 @@ class QuizAttempt extends Model
 		'id',
 		'quiz_id',
 		'users_id',
-		'locked',
+		'seconds',
 		'start_time'
 	];
 }

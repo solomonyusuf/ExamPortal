@@ -15,7 +15,7 @@ return new class extends Migration
             $table->uuid('id');
             $table->foreignUuid('quiz_id');
             $table->foreignUuid('users_id');
-            $table->boolean('locked')->default(false);
+            $table->Integer('seconds');
             $table->dateTime('start_time');
             $table->timestamps();
         });

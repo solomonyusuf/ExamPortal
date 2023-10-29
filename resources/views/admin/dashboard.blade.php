@@ -1,6 +1,7 @@
 @extends('layouts.admin_layout')
 
 <?php
+    $user = auth()->user();
     //--student-------------------------
    $students = \App\Models\User::where('role','student')->count();
    $new_students = \App\Models\User::where('role','student')->where('created_at','>', \Carbon\Carbon::now()->subDays(3))->count();
@@ -35,7 +36,7 @@
                                 <div class="col-12">
                                     <div class="d-flex align-items-lg-center flex-lg-row flex-column">
                                         <div class="flex-grow-1">
-                                            <h4 class="fs-16 mb-1">Good Morning, Anna!</h4>
+                                            <h4 class="fs-16 mb-1">Good Day, {{$user->first_name}}!</h4>
                                             <p class="text-muted mb-0">Here's what's happening on this platform
                                                 today.</p>
                                         </div>

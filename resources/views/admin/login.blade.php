@@ -9,19 +9,11 @@
                     <div class="card overflow-hidden">
                         <div class="row g-0">
                             <div class="col-lg-6">
-                                <div class="p-lg-5 p-4 auth-one-bg h-100">
+                                <div class="p-lg-5 p-4 h-100" style="background-image: url({{asset('admin/assets/images/profile-bg.jpg')}});">
                                     <div class=""></div>
                                     <div class="position-relative h-100 d-flex flex-column">
-                                        <div class="mb-4">
-                                            <a href="index.html" class="d-block">
-                                                <img src="" alt="" height="18">
-                                            </a>
-                                        </div>
-                                        <div class="mt-auto">
-                                            <div class="mb-3">
-                                                <i class="ri-double-quotes-l display-4 text-success"></i>
-                                            </div>
 
+                                        <div class="mt-auto">
                                             <div id="qoutescarouselIndicators" class="carousel slide" data-bs-ride="carousel">
                                                 <div class="carousel-indicators">
                                                     <button type="button" data-bs-target="#qoutescarouselIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
@@ -50,41 +42,34 @@
                             <div class="col-lg-6">
                                 <div class="p-lg-5 p-4">
                                     <div>
-                                        <img style="height:40px;" src="{{asset('landing/assets/images/logo.png')}}" alt="BeRifma">
-                                        <h5 class="text-primary">Welcome Back !</h5>
+                                        <img style="height:100px;" src="{{asset('assets/images/quiz.png')}}" alt="BeRifma">
                                         <p class="text-muted">Sign in to continue to Management.</p>
                                     </div>
 
                                     <div class="mt-4">
-                                        <form>
-
+                                        <form method="post" action="{{route('post_admin_login')}}">
+                                            @csrf
                                             <div class="mb-3">
                                                 <label for="username" class="form-label">Username or Email</label>
-                                                <input type="text" class="form-control" id="username" placeholder="Enter username">
+                                                <input type="text" class="form-control" name="email" placeholder="Enter Email">
                                             </div>
 
                                             <div class="mb-3">
                                                 <label class="form-label" for="password-input">Password</label>
                                                 <div class="position-relative auth-pass-inputgroup mb-3">
-                                                    <input type="password" class="form-control pe-5 password-input" placeholder="Enter password" id="password-input">
-                                                    <button class="btn btn-link position-absolute end-0 top-0 text-decoration-none text-muted password-addon" type="button" id="password-addon"><i class="ri-eye-fill align-middle"></i></button>
+                                                    <input type="password" class="form-control pe-5 password-input" placeholder="Enter password" name="password">
                                                 </div>
                                             </div>
 
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" value="" id="auth-remember-check">
-                                                <label class="form-check-label" for="auth-remember-check">Remember me</label>
-                                            </div>
-
                                             <div class="mt-4">
-                                                <a href="{{route('admin_dashboard')}}" class="btn btn-success w-100" type="submit">Sign In</a>
+                                                <button class="btn btn-success w-100" type="submit">Sign In</button>
                                             </div>
 
                                         </form>
                                     </div>
 
                                     <div class="mt-5 text-center">
-                                        <p class="mb-0">Back to Student <a href="{{url('/')}}" class="fw-semibold text-primary text-decoration-underline"> Student</a> </p>
+                                        <p class="mb-0">Back to <a href="{{url('/')}}" class="fw-semibold text-primary text-decoration-underline"> Student</a> </p>
                                     </div>
                                 </div>
                             </div>

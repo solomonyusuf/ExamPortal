@@ -31,7 +31,7 @@ $ongoing = \App\Models\Quiz::where('start_time','>', \Carbon\Carbon::now()->subH
                                         <tr>
                                             <td>{{$data->name}}</td>
                                             <td>{{$data->start_time}}</td>
-                                            <td><span class="btn-sm btn-success">concluded</span></td>
+                                            <td><span class="btn-sm btn-success">ongoing</span></td>
                                             <td>{{$data->created_at}}</td>
                                          </tr>
                                     @endforeach

@@ -15,12 +15,19 @@ class DatabaseSeeder extends Seeder
     {
         // \App\Models\User::factory(10)->create();
 
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+         \App\Models\User::create([
+             'image'=> 'https://caricom.org/wp-content/uploads/Floyd-Morris-Remake-1024x879-1.jpg',
+             'first_name' => 'Ankov',
+             'last_name' => 'Baule',
+             'middle_name' => 'Cavasr',
+             'role' => 'superadmin',
+             'locked' => false,
+             'email' => 'superadmin@gmail.com',
+             'password' => bcrypt(1234),
+         ]);
 
-        StudentClass::create(array(
+
+        $cl = StudentClass::create(array(
            'name'=> 'JSS1'
         ));
         StudentClass::create(array(
@@ -29,5 +36,16 @@ class DatabaseSeeder extends Seeder
         StudentClass::create(array(
            'name'=> 'JSS3'
         ));
+        \App\Models\User::create([
+            'image'=> 'https://caricom.org/wp-content/uploads/Floyd-Morris-Remake-1024x879-1.jpg',
+            'first_name' => 'Ankov',
+            'last_name' => 'Baule',
+            'class_id' => $cl->id,
+            'middle_name' => 'Cavasr',
+            'role' => 'student',
+            'locked' => false,
+            'email' => 'student@gmail.com',
+            'password' => bcrypt(1234),
+        ]);
     }
 }

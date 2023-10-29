@@ -34,7 +34,7 @@ $scheduled = \App\Models\Quiz::where('start_time','>', \Carbon\Carbon::now())->o
                                         <tr>
                                             <td>{{$data->name}}</td>
                                             <td>{{$data->start_time}}</td>
-                                            <td><span class="btn-sm btn-success">concluded</span></td>
+                                            <td><span class="btn-sm btn-success">scheduled</span></td>
                                             <td>{{$data->created_at}}</td>
                                             <td><a href="{{route('edit_exams', $data->id)}}" class="btn btn-sm btn-primary">Questions</a></td>
                                             <td><a href="{{route('delete_exam', $data->id)}}" class="btn btn-sm btn-danger">Delete</a></td>

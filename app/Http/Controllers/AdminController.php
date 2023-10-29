@@ -7,6 +7,9 @@ use App\Models\QuizQuestion;
 use App\Models\StudentClass;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 use Symfony\Component\Console\Question\Question;
 use function Laravel\Prompts\error;
 
@@ -14,9 +17,42 @@ class AdminController extends Controller
 {
     public function post_admin_login(Request $request)
     {
+        $input = $request->all();
 
+        $this->validate($request, [
+            'email' => 'required|email',
+            'password' => 'required',
+        ]);
+
+        if(auth()->attempt(array('email' => $input['email'], 'password' => $input['password'])))
+        {
+            $user = auth()->user();
+
+            if($user->role == 'staff' || $user->role == 'superadmin' && $user->locked == false)
+            {
+                alert()->success('Login Successful','your login attempt was successful.');
+                return redirect()->route('admin_dashboard');
+            }
+            else
+            {
+
+                alert()->error('Login Error','An error occured.');
+                return redirect()->back();
+            }
+        }
+        else
+        {
+            alert()->error('Error','Invalid email or password.');
+            return redirect()->back();
+
+        }
     }
-
+    public function logout()
+    {
+        Auth::logout();
+        toast('Logout sucessful', 'success');
+        return redirect()->route('welcome');
+    }
     //EXAM
     public function add_exam(Request $request)
     {
@@ -30,7 +66,7 @@ class AdminController extends Controller
                 'duration'=> $request->duration,
                 'start_time'=> $request->start_time
             ));
-            toast('Creation sucessful.Proceed to add questions.', 'success');
+            toast('Creation sucessful,proceed to add questions', 'success');
             return redirect()->route('edit_exams',$quiz->id);
         }
         catch(\Exception $exception)
@@ -151,6 +187,13 @@ class AdminController extends Controller
     {
         try
         {
+            $track = User::where('email', $request->email)->first();
+            if($track)
+            {
+                alert()->error("Email Exists", 'Sorry duplicate emails are not allowed.');
+                return redirect()->back();
+            }
+
             $image = null;
             if($request->image != null)
             {
@@ -169,17 +212,21 @@ class AdminController extends Controller
                 request()->image->move(public_path('Staticfiles'), $image);
 
             }
+            $role = $request->role;
             User::create(array(
                 'image'=> $image,
                 'first_name'=> $request->first_name,
                 'last_name'=> $request->last_name,
                 'middle_name'=> $request->middle_name,
-                'exam_access'=> $request->exam_access,
+                'exam_access'=> Str::upper($request->first_name),
                 'class_id'=> $request->class_id,
-                'password'=> bcrypt($request->exam_access),
-                'role'=> $request->role,
+                'email'=> $request->email,
+                'password'=> $role == 'student' ? bcrypt(Str::upper($request->first_name)) : bcrypt($request->password),
+                'student_id'=> $request->phone,
+                'role'=> $role,
                 'locked'=> $request->locked
             ));
+
             toast('Creation Sucessful', 'success');
         }
         catch(\Exception $exception)
@@ -219,10 +266,11 @@ class AdminController extends Controller
                 'first_name'=> $request->first_name,
                 'last_name'=> $request->last_name,
                 'middle_name'=> $request->middle_name,
-                'exam_access'=> $request->exam_access,
+                'exam_access'=> Str::upper($request->exam_access),
+                'student_id'=> $user->student_id,
                 'class_id'=> $request->class_id,
                 'email_verified_at'=> $user->email_verified_at,
-                'password'=> bcrypt($request->exam_access),
+                'password'=> $user->role == 'student' ? bcrypt(Str::upper($request->exam_access)) : bcrypt($request->password),
                 'role'=> $user->role,
                 'locked'=> $request->locked
             ));

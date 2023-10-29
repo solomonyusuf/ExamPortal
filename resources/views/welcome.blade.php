@@ -61,34 +61,34 @@
 
                     <!-- form -->
                     <div class="form">
+                        @include('sweetalert::alert', ['cdn' => "https://cdn.jsdelivr.net/npm/sweetalert2@9"])
+
                         <h2 class="login-form form-title">
                             <div class="logo">
                                 <div class="logo-icon">
-                                    <img src="{{asset('landing/assets/images/logo.png')}}" alt="BeRifma">
-                                </div>
-                                <div class="">
-                                    Exam
+                                    <img src="{{asset('assets/images/quiz.png')}}" alt="BeRifma">
                                 </div>
                             </div>
                         </h2>
 
                         <!-- login form -->
-                        <form id="step1" class="login-form" method="post">
+                        <form action="{{route('student_login')}}" class="login-form" method="post">
+                            @csrf
                             <div class="input-field">
-                                <input type="text" id="username" required>
+                                <input type="text" name="student_id" id="username" required>
                                 <label>
                                     Student ID
                                 </label>
                             </div>
-                            <div class="input-field delay-100ms">
-                                <input type="password" id="password" required>
+                            <div class="input-field">
+                                <input name="password" type="password" id="password" required>
                                 <label>
                                     Exam access
                                 </label>
                             </div>
 
                             <div class="login-btn">
-                                <button type="button" class="login">Login Account</button>
+                                <button type="submit" class="login">Login Account</button>
                             </div>
                         </form>
                         <div class="login-form signup_social">
@@ -131,7 +131,7 @@
 <script src="landing/assets/js/jquery-3.6.1.min.js"></script>
 <button id="submit-button">Submit</button>
 
-<script src="student/assets/js/securitychecks.js"></script>
+
 <!-- My js -->
 <script src="landing/assets/js/custom.js"></script>
 </body>
