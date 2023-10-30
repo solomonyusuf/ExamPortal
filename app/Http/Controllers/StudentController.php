@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Quiz;
 use App\Models\QuizAttempt;
+use App\Models\QuizResponse;
 use App\Models\QuizResult;
 use App\Models\User;
 use Carbon\Carbon;
@@ -60,12 +61,99 @@ class StudentController extends Controller
 
         }
     }
-
-    public static function TrackTime($attempt_id, $seconds)
+    public static function respond(Request $request)
     {
-        $att = QuizAttempt::find($attempt_id);
-        $att->seconds = $seconds;
-        $att->save();
-        return $att;
+        try
+        {
+            if(self::check_question($request->id))
+            {
+                toast('Already answered', 'warning');
+                return redirect()->back();
+            }
+            QuizResponse::create(array(
+                'quiz_id'=> $request->quiz_id,
+                'question_id'=> $request->id,
+                'users_id'=> auth()->user()?->id,
+                'response'=> $request->opt1
+            ));
+            toast('Response recorded', 'success');
+
+            $index = 0;
+            if(request()->page == request()->quiz_total)
+            {
+                $index = request()->page;
+            }
+            else
+            {
+                $index = request()->page
+                    ? intval(request()->page) + 1 : 2;
+            }
+            return redirect(route('current_exam').'?page='.$index);
+        }
+        catch(\Exception $exception)
+        {
+            error_log($exception);
+            toast('An error occured', 'error');
+            return redirect()->back();
+        }
+    }
+    public static function clear_choice($id)
+    {
+        try
+        {
+            $response = QuizResponse::where([['question_id', $id], ['users_id', auth()->user()?->id]])->first();
+            if(!$response) return redirect()->back();
+            $response->delete();
+
+            toast('Response removed', 'success');
+        }
+        catch(\Exception $exception)
+        {
+            error_log($exception);
+            toast('An error occured', 'error');
+            return redirect()->back();
+        }
+
+        return redirect()->back();
+
+    }
+    public static function check_question($id)
+    {
+        $response = QuizResponse::where([['question_id', $id], ['users_id', auth()->user()?->id]])->first();
+        if (!$response) return false;
+
+        return true;
+    }
+    public static function get_response($id)
+    {
+        $response = QuizResponse::where([['question_id', $id], ['users_id', auth()->user()?->id]])->first();
+
+        return $response;
+    }
+    public static function get_all_response($id)
+    {
+        return QuizResponse::where([['quiz_id', $id], ['users_id', auth()->user()?->id]])->get();
+    }
+    public static function submit($id)
+    {
+        try
+        {
+            $score = 0;
+            /* fetch questions vis a vis the response, then mark them */
+            $questions = \App\Models\QuizQuestion::with('response')->where('quiz_id', $id)->get();
+            dd($questions);
+
+            QuizResult::create(array(
+                'quiz_id'=> $id ,
+                'users_id'=> auth()->user()?->id,
+                'score'=> $score
+            ));
+        }
+        catch(\Exception $exception)
+        {
+            error_log($exception);
+            toast('An error occured', 'error');
+            return redirect()->back();
+        }
     }
 }

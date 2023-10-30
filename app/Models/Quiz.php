@@ -48,4 +48,8 @@ class Quiz extends Model
 		'duration',
 		'start_time'
 	];
+    public function response()
+    {
+        return $this->hasMany(QuizResponse::class);
+    }
 }

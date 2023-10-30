@@ -90,6 +90,11 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/exam-locked', [PagesController::class, 'exam_locked'])->name('exam_locked');
     Route::get('/no-exam', [PagesController::class, 'no_exam'])->name('no_exam');
     Route::get('/finished', [PagesController::class, 'finished'])->name('finished');
+
     // REQUESTS
+    Route::post('/respond', [StudentController::class, 'respond'])->name('respond');
+    Route::get('/submit-exam/{id}', [StudentController::class, 'submit'])->name('submit');
+    Route::get('/clear-choice/{id}', [StudentController::class, 'clear_choice'])->name('clear_choice');
+
 });
 

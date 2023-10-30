@@ -49,4 +49,8 @@ class QuizQuestion extends Model
 		'd',
 		'point'
 	];
+    public function response()
+    {
+        return $this->hasMany(QuizResponse::class, 'question_id');
+    }
 }

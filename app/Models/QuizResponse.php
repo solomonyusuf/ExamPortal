@@ -37,4 +37,9 @@ class QuizResponse extends Model
 		'users_id',
 		'response'
 	];
+
+    public function quiz()
+    {
+        return $this->belongsTo(QuizQuestion::class);
+    }
 }

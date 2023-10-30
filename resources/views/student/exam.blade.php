@@ -4,7 +4,7 @@
 <?php
   $user = auth()->user();
   $count = \App\Models\QuizQuestion::where('quiz_id', $quiz->id)->count();
-
+  $answered = count(\App\Http\Controllers\StudentController::get_all_response($quiz->id));
 ?>
 <style>
     .main-heading{font-size:small;}
@@ -34,9 +34,13 @@
 
                         <p class="text-mute">{{$quiz->name}}</p>
                         <p class="text-mute">{{$user->student_id}}</p>
-                        <div class="step-number">
+                        <div class="text-mute">Done <span>{{$answered}}</span>/{{$count}}</div>
+                        <br/>
+                        @if($answered == $count)
+                        <a href="{{route('submit', $quiz->id)}}" class="w-50 btn step-number">
                            End Exam
-                        </div>
+                        </a>
+                        @endif
 
                     </div>
                 </div>
@@ -52,11 +56,19 @@
                     </div>
                 </div>
                 @foreach($questions as $data)
-                    <form id="steps" method="post" class="show-section">
+                    <?php
+                        $response_exist = \App\Http\Controllers\StudentController::check_question($data->id);
+
+                        ?>
+                    <form action="{{route('respond')}}" id="steps" method="post" class="show-section">
+                        @csrf
                         <!-- step 1  -->
                         <section class="steps">
                             <div class="step-inner">
                                 <div class="step-number">Question <span>{{request()->page != null ? request()->page : 1}}</span>/{{$count}}</div>
+                                <input type="text" hidden name="page" value="{{request()->page}}">
+                                <input type="text" hidden name="total" value="{{$answered}}">
+                                <input type="text" hidden name="quiz_total" value="{{$count}}">
 
                                 <!-- Step 1 Heading  -->
                                 <div class="main-heading">
@@ -64,8 +76,74 @@
                                 </div>
 
                                 <!-- Step 1 form  -->
+                                @if($response_exist)
+                                    <?php
+                                        $choice = \App\Http\Controllers\StudentController::get_response($data->id);
+                                        ?>
                                 <div id="step1" class="borderc">
                                     <div class="child1 radio-field">
+                                        <input type="text" hidden name="id" value="{{$data->id}}">
+                                        <input type="text" hidden name="quiz_id" value="{{$data->quiz_id}}">
+                                        @if($choice->response == $data->a )
+                                        <input type="radio" name="opt1" value="{{$data->a}}" checked>
+                                        @else
+                                            <input type="radio" name="opt1" value="{{$data->a}}">
+                                        @endif
+                                            <label>
+
+                                            <span>A</span>
+                                            {{$data->a}}
+                                        </label>
+                                    </div>
+                                    <div class="child2 radio-field delay-100ms">
+                                        @if($choice->response == $data->b )
+                                            <input type="radio" name="opt1" value="{{$data->b}}" checked>
+                                        @else
+                                            <input type="radio" name="opt1" value="{{$data->b}}">
+                                        @endif
+                                        <label>
+                                            <span>B</span>
+                                            {{$data->b}}
+                                        </label>
+                                    </div>
+                                    <div class="child3 radio-field delay-200ms">
+                                        @if($choice->response == $data->c )
+                                            <input type="radio" name="opt1" value="{{$data->c}}" checked>
+                                        @else
+                                            <input type="radio" name="opt1" value="{{$data->c}}">
+                                        @endif
+                                        <label>
+                                            <span>C</span>
+                                            {{$data->c}}
+                                        </label>
+                                    </div>
+                                    <div class="child4 radio-field delay-300ms">
+                                        @if($choice->response == $data->d )
+                                            <input type="radio" name="opt1" value="{{$data->d}}" checked>
+                                        @else
+                                            <input type="radio" name="opt1" value="{{$data->d}}">
+                                        @endif
+                                        <label>
+                                            <span>D</span>
+                                            {{$data->d}}
+                                        </label>
+                                    </div>
+                                    @if(!$response_exist)
+                                        <button type="submit" class="step-number">
+                                            Continue
+                                        </button>
+                                    @else
+                                        <a href="{{route('clear_choice', $data->id)}}"  class="btn btn-danger btn-sm">
+                                            Clear Choice
+                                        </a>
+                                    @endif
+
+                                </div>
+                                @else
+                                <div id="step1" class="borderc">
+                                    <div class="child1 radio-field">
+                                        <input type="text" hidden name="id" value="{{$data->id}}">
+                                        <input type="text" hidden name="quiz_id" value="{{$data->quiz_id}}">
                                         <input type="radio" name="opt1" value="{{$data->a}}">
                                         <label>
                                             <span>A</span>
@@ -93,13 +171,30 @@
                                             {{$data->d}}
                                         </label>
                                     </div>
+                                    @if(!$response_exist)
+                                        <button type="submit" class="step-number">
+                                            Continue
+                                        </button>
+                                    @else
+                                        <a href="{{route('clear_choice', $data->id)}}"  class="btn btn-danger btn-sm">
+                                            Clear Choice
+                                        </a>
+                                    @endif
+
                                 </div>
+                                    @endif
                             </div>
+
                         </section>
                     </form>
                 @endforeach
                     {{$questions->links()}}
 
+                @if($answered == $count)
+                    <a href="{{route('submit', $quiz->id)}}" class="btn w-100 step-number">
+                        End Exam
+                    </a>
+                @endif
             </div>
         </div>
     </div>
