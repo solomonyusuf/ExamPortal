@@ -136,24 +136,35 @@ class StudentController extends Controller
     }
     public static function submit($id)
     {
-        try
-        {
+//        try
+//        {
             $score = 0;
+            $quiz = Quiz::find($id);
             /* fetch questions vis a vis the response, then mark them */
             $questions = \App\Models\QuizQuestion::with('response')->where('quiz_id', $id)->get();
-            dd($questions);
+            foreach ($questions as $data)
+            {
+               if($data['correct'] == $data->response[0]['response'])
+                   $score += $quiz->points;
+            }
+
+            $quiz->total_point = ($questions->count() * $quiz->points);
+            $quiz->save();
 
             QuizResult::create(array(
                 'quiz_id'=> $id ,
                 'users_id'=> auth()->user()?->id,
                 'score'=> $score
             ));
-        }
-        catch(\Exception $exception)
-        {
-            error_log($exception);
-            toast('An error occured', 'error');
-            return redirect()->back();
-        }
+
+            alert()->success('Exam Ended', 'Your exam ended successfully');
+            return redirect()->route('finished');
+//        }
+//        catch(\Exception $exception)
+//        {
+//            error_log($exception);
+//            toast('An error occured', 'error');
+//            return redirect()->back();
+//        }
     }
 }
