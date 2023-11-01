@@ -113,7 +113,7 @@
                                                         <div>
                                                             <div>
                                                                 <label for="placeholderInput" class="form-label">Option B</label>
-                                                                <input required type="text"  name="b" class="form-control" id="placeholderInput" placeholder="eg 40/100">
+                                                                <input required type="text"  name="b" class="form-control" id="placeholderInput">
                                                             </div>
                                                         </div>
                                                             <div>
@@ -126,7 +126,7 @@
                                                         <div>
                                                             <div>
                                                                 <label for="placeholderInput" class="form-label">Option D</label>
-                                                                <input required type="text"  name="d" class="form-control" id="placeholderInput" placeholder="eg 40/100">
+                                                                <input required type="text"  name="d" class="form-control" id="placeholderInput" >
                                                             </div>
                                                         </div>
                                                         <!--end col-->

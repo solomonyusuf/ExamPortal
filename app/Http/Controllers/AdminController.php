@@ -66,7 +66,7 @@ class AdminController extends Controller
                 'duration'=> $request->duration,
                 'start_time'=> $request->start_time
             ));
-            alert()->success('Question Added','Your question has been added successfully');
+            alert()->success('Quiz Added','Procced to add questions, your quiz has been added successfully');
             return redirect()->route('edit_exams',$quiz->id);
         }
         catch(\Exception $exception)

@@ -195,14 +195,27 @@
                         End Exam
                     </a>
                 @endif
+                <form action="{{route('lock_exam', $quiz->id)}}" method="get">
+                    @csrf
+                    <button id="myLock" hidden  type="submit" class="btn w-100 step-number">
+                        End Exam
+                    </button>
+                </form>
+
             </div>
         </div>
     </div>
 </main>
 <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
-<script src="{{asset('student/assets/js/securitychecks.js')}}"></script>
 <script>
-
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            //select the lock button and lock
+            var lock = document.getElementById("myLock");
+            lock.click();
+            console.log('Page is now hidden');
+        }
+    });
     // Timer countdown
 
     var totalTime = {{ $quiz->duration}} * 60; // Convert minutes to seconds

@@ -1,7 +1,8 @@
 
 @extends('layouts.student_layout')
 <?php
-$user = auth()->user();?>
+$user = auth()->user();
+?>
 <main class="popreveal overflow-hidden">
         <div class="row">
         <div class="sidebar col-md-3 orders">

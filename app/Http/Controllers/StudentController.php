@@ -130,14 +130,32 @@ class StudentController extends Controller
 
         return $response;
     }
+    public static function lock_exam($id)
+    {
+        try
+        {
+            $user = User::find(auth()->user()?->id);
+            $user->locked = true;
+            $user->save();
+
+            alert()->warning('Exam Locked', 'due to suspicious activity, like opening new tab or leaving the exam page, you have been locked-out of this system');
+        }
+        catch(\Exception $exception)
+        {
+            error_log($exception);
+            toast('An error occured', 'error');
+            return redirect()->back();
+        }
+        return redirect()->route('exam_locked');
+    }
     public static function get_all_response($id)
     {
         return QuizResponse::where([['quiz_id', $id], ['users_id', auth()->user()?->id]])->get();
     }
     public static function submit($id)
     {
-//        try
-//        {
+        try
+        {
             $score = 0;
             $quiz = Quiz::find($id);
             /* fetch questions vis a vis the response, then mark them */
@@ -159,12 +177,12 @@ class StudentController extends Controller
 
             alert()->success('Exam Ended', 'Your exam ended successfully');
             return redirect()->route('finished');
-//        }
-//        catch(\Exception $exception)
-//        {
-//            error_log($exception);
-//            toast('An error occured', 'error');
-//            return redirect()->back();
-//        }
+        }
+        catch(\Exception $exception)
+        {
+            error_log($exception);
+            toast('An error occured', 'error');
+            return redirect()->back();
+        }
     }
 }

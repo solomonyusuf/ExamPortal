@@ -95,6 +95,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('/respond', [StudentController::class, 'respond'])->name('respond');
     Route::get('/submit-exam/{id}', [StudentController::class, 'submit'])->name('submit');
     Route::get('/clear-choice/{id}', [StudentController::class, 'clear_choice'])->name('clear_choice');
+    Route::get('/lock-exam/{id}', [StudentController::class, 'lock_exam'])->name('lock_exam');
 
 });
 

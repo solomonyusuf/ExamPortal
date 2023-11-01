@@ -42,7 +42,7 @@
 <?php
    $user = auth()->user();
 ?>
-@if($user != null)
+@if($user != null && $user->role == 'superadmin')
     <header id="page-topbar">
         <div class="layout-width">
             <div class="navbar-header">
