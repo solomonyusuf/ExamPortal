@@ -42,7 +42,7 @@
 <?php
    $user = auth()->user();
 ?>
-@if($user != null && $user->role == 'superadmin')
+@if($user != null && $user->role != 'student')
     <header id="page-topbar">
         <div class="layout-width">
             <div class="navbar-header">
@@ -180,7 +180,7 @@
                             </ul>
                         </div>
                     </li>
-
+                    @if($user->role == 'superadmin')
                     <li class="menu-title"><i class="ri-more-fill"></i> <span data-key="t-pages">Pages</span></li>
 
                     <li class="nav-item">
@@ -230,7 +230,7 @@
                             </ul>
                         </div>
                     </li>
-
+                    @endif
                 </ul>
             </div>
             <!-- Sidebar -->
