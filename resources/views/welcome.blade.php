@@ -15,12 +15,12 @@
     <link rel="stylesheet" href="../../../../cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
 
     <!-- Bootstrap-5 -->
-    <link rel="stylesheet" href="landing/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ asset('landing/assets/css/bootstrap.min.css')}}">
 
     <!-- custom-styles -->
-    <link rel="stylesheet" href="landing/assets/css/style.css">
-    <link rel="stylesheet" href="landing/assets/css/responsive.css">
-    <link rel="stylesheet" href="landing/assets/css/animation.css">
+    <link rel="stylesheet" href="{{ asset('landing/assets/css/style.css')}}">
+    <link rel="stylesheet" href="{{ asset('landing/assets/css/responsive.css')}}">
+    <link rel="stylesheet" href="{{ asset('landing/assets/css/animation.css')}}">
 </head>
 <body>
 
@@ -125,15 +125,15 @@
 
 
 <!-- Bootstrap-5 -->
-<script src="landing/assets/js/bootstrap.min.js"></script>
+<script src="{{ asset('landing/assets/js/bootstrap.min.js')}}"></script>
 
 <!-- Jquery -->
-<script src="landing/assets/js/jquery-3.6.1.min.js"></script>
+<script src="{{ asset('landing/assets/js/jquery-3.6.1.min.js')}}"></script>
 <button id="submit-button">Submit</button>
 
 
 <!-- My js -->
-<script src="landing/assets/js/custom.js"></script>
+<script src="{{ asset('landing/assets/js/custom.js')}}"></script>
 </body>
 
 <!-- Mirrored from templates.seekviral.com/trimba3/forms/CompanyRegistrationPage/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 08 Oct 2023 08:22:01 GMT -->

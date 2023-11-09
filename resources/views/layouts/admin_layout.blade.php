@@ -4,7 +4,7 @@
 <head>
 
     <meta charset="utf-8" />
-    <title>Sign In | Admin </title>
+    <title>Management Admin </title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta content="Exam Portal name="description" />
     <!-- App favicon -->
@@ -165,7 +165,7 @@
                         <div class="collapse menu-dropdown" id="sidebarApps">
                             <ul class="nav nav-sm flex-column">
                                 <li class="nav-item">
-                                    <a href="{{route('ongoing_exams')}}" class="nav-link" data-key="t-calendar">Ongoing Exams </a>
+                                    <a href="{{route('ongoing_exams')}}" class="nav-link" data-key="t-calendar">All Exams </a>
                                 </li>
                                 <li class="nav-item">
                                     <a href="{{route('concluded_exams')}}" class="nav-link" data-key="t-chat"> Concluded Exams </a>
@@ -1043,10 +1043,6 @@
 <!-- filepond js -->
 <script src="{{asset('admin/assets/libs/filepond/filepond.min.js')}}"></script>
 <script src="{{asset('admin/assets/libs/filepond-plugin-image-preview/filepond-plugin-image-preview.min.js')}}"></script>
-<script src="{{asset('admin/assets/libs/filepond-plugin-file-validate-size/filepond-plugin-file-validate-size.min.js')}}"></script>
-<script src="{{asset('admin/assets/libs/filepond-plugin-image-exif-orientation/filepond-plugin-image-exif-orientation.min.js')}}"></script>
-<script src="{{asset('admin/assets/libs/filepond-plugin-file-encode/filepond-plugin-file-encode.min.js')}}"></script>
-
 <!-- App js -->
 <script src="{{asset('admin/assets/js/app.js')}}"></script>
 <script src="//cdn.ckeditor.com/4.14.1/standard/ckeditor.js"></script>

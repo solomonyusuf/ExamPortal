@@ -23,6 +23,8 @@ $concluded = \App\Models\Quiz::where('start_time','<', \Carbon\Carbon::now()->su
                                         <th>Start</th>
                                         <th>Status</th>
                                         <th>Date</th>
+                                        <th>Results</th>
+                                        <th></th>
                                         <th></th>
 
                                     </tr>
@@ -35,6 +37,8 @@ $concluded = \App\Models\Quiz::where('start_time','<', \Carbon\Carbon::now()->su
                                             <td><span class="btn-sm btn-success">concluded</span></td>
                                             <td>{{$data->created_at}}</td>
                                             <td><a href="{{route('result', $data->id)}}" class="btn btn-sm btn-primary">Results</a></td>
+                                            <td><a href="{{route('edit_exams', $data->id)}}" class="btn btn-sm btn-primary">Questions</a></td>
+                                            <td><a href="{{route('delete_exam', $data->id)}}" class="btn btn-sm btn-danger">Delete</a></td>
                                         </tr>
                                     @endforeach
 
