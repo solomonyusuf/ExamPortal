@@ -26,7 +26,7 @@
 
 <!-- background -->
 <div class="ls-bg">
-    <img class="ls-bg-inner" src="landing/assets/images/login.jpg" alt="">
+    <img class="ls-bg-inner" src="{{asset('landing/assets/images/login.jpg')}}" alt="">
 </div>
 
 <main onload="OpenfullScreen()" class="overflow-hidden">
@@ -41,7 +41,7 @@
                     <!-- side text -->
 {{--                    <div class="side-text">--}}
 {{--                        <article>--}}
-{{--                            <span>Join Our Marketplace</span>--}}
+{{--                            <span>Quiz Assesment</span>--}}
 {{--                            <h1 class="main-heading">Company</h1>--}}
 {{--                            <p>--}}
 {{--                                The next generation social network & community! Connect--}}
