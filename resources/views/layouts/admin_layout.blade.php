@@ -1026,23 +1026,6 @@
 <script src="{{asset('admin/assets/libs/feather-icons/feather.min.js')}}"></script>
 <script src="{{asset('admin/assets/js/pages/plugins/lord-icon-2.1.0.js')}}"></script>
 <script src="{{asset('admin/assets/js/plugins.js')}}"></script>
-
-<script src="{{asset('admin/assets/libs/apexcharts/apexcharts.min.js')}}"></script>
-
-<!-- Vector map-->
-<script src="{{asset('admin/assets/libs/jsvectormap/js/jsvectormap.min.js')}}"></script>
-<script src="{{asset('admin/assets/libs/jsvectormap/maps/world-merc.js')}}"></script>
-
-<!--Swiper slider js-->
-<script src="{{asset('admin/assets/libs/swiper/swiper-bundle.min.js')}}"></script>
-
-<!-- Dashboard init -->
-<script src="{{asset('admin/assets/js/pages/dashboard-ecommerce.init.js')}}"></script>
-<!-- dropzone min -->
-<script src="{{asset('admin/assets/libs/dropzone/dropzone-min.js')}}"></script>
-<!-- filepond js -->
-<script src="{{asset('admin/assets/libs/filepond/filepond.min.js')}}"></script>
-<script src="{{asset('admin/assets/libs/filepond-plugin-image-preview/filepond-plugin-image-preview.min.js')}}"></script>
 <!-- App js -->
 <script src="{{asset('admin/assets/js/app.js')}}"></script>
 <script src="//cdn.ckeditor.com/4.14.1/standard/ckeditor.js"></script>
