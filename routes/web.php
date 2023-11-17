@@ -3,6 +3,9 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\PagesController;
 use App\Http\Controllers\StudentController;
+use App\Jobs\MigrateJob;
+use App\Jobs\MigrateSeedJob;
+use App\Jobs\ResetJob;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 
@@ -17,17 +20,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 Route::get('/migrate-seed', function () {
-    Artisan::call('migrate:seed');
+    MigrateSeedJob::dispatch();
     return redirect('/');
 });
 Route::get('/migrate', function () {
-    Artisan::call('migrate');
+    MigrateJob::dispatch();
     return redirect('/');
 });
 Route::get('/reset', function () {
-    Artisan::call('db:reset');
+    ResetJob::dispatch();
     return redirect('/');
 });
+
 
 Route::get('/', function () {
     return view('welcome');
