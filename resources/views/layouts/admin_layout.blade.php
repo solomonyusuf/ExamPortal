@@ -11,27 +11,24 @@
     <link rel="shortcut icon" href="assets/images/favicon.ico">
 
     <!-- jsvectormap css -->
-    <link href="{{asset('admin/assets/libs/jsvectormap/css/jsvectormap.min.css')}}" rel="stylesheet" type="text/css" />
+    <link href="{{asset('/admin/assets/libs/jsvectormap/css/jsvectormap.min.css')}}" rel="stylesheet" type="text/css" />
 
     <!--Swiper slider css-->
-    <link href="{{asset('admin/assets/libs/swiper/swiper-bundle.min.css')}}" rel="stylesheet" type="text/css" />
+    <link href="{{asset('/admin/assets/libs/swiper/swiper-bundle.min.css')}}" rel="stylesheet" type="text/css" />
 
     <!-- Layout config Js -->
-    <script src="{{asset('admin/assets/js/layout.js')}}"></script>
+    <script src="{{asset('/admin/assets/js/layout.js')}}"></script>
     <!-- Bootstrap Css -->
-    <link href="{{asset('admin/assets/css/bootstrap.min.css')}}" rel="stylesheet" type="text/css" />
+    <link href="{{asset('/admin/assets/css/bootstrap.min.css')}}" rel="stylesheet" type="text/css" />
     <!-- Icons Css -->
-    <link href="{{asset('admin/assets/css/icons.min.css')}}" rel="stylesheet" type="text/css" />
+    <link href="{{asset('/admin/assets/css/icons.min.css')}}" rel="stylesheet" type="text/css" />
     <!-- App Css-->
-    <link href="{{asset('admin/assets/css/app.min.css')}}" rel="stylesheet" type="text/css" />
+    <link href="{{asset('/admin/assets/css/app.min.css')}}" rel="stylesheet" type="text/css" />
     <!-- custom Css-->
-    <link href="{{asset('admin/assets/css/custom.min.css')}}" rel="stylesheet" type="text/css" />
+    <link href="{{asset('/admin/assets/css/custom.min.css')}}" rel="stylesheet" type="text/css" />
     <!-- dropzone css -->
-    <link rel="stylesheet" href="{{asset('admin/assets/libs/dropzone/dropzone.css')}}" type="text/css" />
+    <link rel="stylesheet" href="{{asset('/admin/assets/libs/dropzone/dropzone.css')}}" type="text/css" />
 
-    <!-- Filepond css -->
-    <link rel="stylesheet" href="{{asset('admin/assets/libs/filepond/filepond.min.css')}}" type="text/css" />
-    <link rel="stylesheet" href="{{asset('admin/assets/libs/filepond-plugin-image-preview/filepond-plugin-image-preview.min.css')}}">
     <link rel="stylesheet" href="//cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
 
@@ -1019,15 +1016,18 @@
 <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.html5.min.js"></script>
 <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.print.min.js"></script>
 
-<script src="{{asset('admin/assets/js/pages/form-file-upload.init.js')}}"></script>
-<script src="{{asset('admin/assets/libs/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
-<script src="{{asset('admin/assets/libs/simplebar/simplebar.min.js')}}"></script>
-<script src="{{asset('admin/assets/libs/node-waves/waves.min.js')}}"></script>
-<script src="{{asset('admin/assets/libs/feather-icons/feather.min.js')}}"></script>
-<script src="{{asset('admin/assets/js/pages/plugins/lord-icon-2.1.0.js')}}"></script>
-<script src="{{asset('admin/assets/js/plugins.js')}}"></script>
+<script src="{{ asset('/admin/assets/libs/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+<script src="{{ asset('/admin/assets/libs/simplebar/simplebar.min.js')}}"></script>
+<script src="{{ asset('/admin/assets/libs/node-waves/waves.min.js')}}"></script>
+<script src="{{ asset('/admin/assets/libs/feather-icons/feather.min.js')}}"></script>
+<script src="{{ asset('/admin/assets/js/pages/plugins/lord-icon-2.1.0.js')}}"></script>
+<script src="{{ asset('/admin/assets/js/plugins.js')}}"></script>
+<
+<!-- Dashboard init -->
+<script src="{{ asset('/admin/assets/js/pages/dashboard-ecommerce.init.js')}}"></script>
+
 <!-- App js -->
-<script src="{{asset('admin/assets/js/app.js')}}"></script>
+<script src="{{ asset('admin/assets/js/app.js')}}"></script>
 <script src="//cdn.ckeditor.com/4.14.1/standard/ckeditor.js"></script>
 <script>
     CKEDITOR.replace( 'description',{

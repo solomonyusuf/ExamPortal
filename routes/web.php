@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\PagesController;
 use App\Http\Controllers\StudentController;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,7 +16,18 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
+Route::get('/migrate-seed', function () {
+    Artisan::call('migrate:seed');
+    return redirect('/');
+});
+Route::get('/migrate', function () {
+    Artisan::call('migrate');
+    return redirect('/');
+});
+Route::get('/reset', function () {
+    Artisan::call('db:reset');
+    return redirect('/');
+});
 
 Route::get('/', function () {
     return view('welcome');
