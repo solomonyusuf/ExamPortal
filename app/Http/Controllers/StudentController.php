@@ -36,6 +36,23 @@ class StudentController extends Controller
                 alert()->success('Welcome '."{$user->first_name}",'there is currently no exam scheduled.');
                 return redirect()->route('no_exam');
             }
+            $attempt = \App\Models\QuizAttempt::where([['quiz_id', $exam?->id], ['users_id', auth()->user()?->id]])->first();
+            if($attempt)
+            {
+                session()->put('attempt_id', $attempt->id);
+                if(\Carbon\Carbon::now() >= \Carbon\Carbon::parse($attempt->start_time)->addMinutes($exam->duration))
+                {
+                    return redirect()->route('finished');
+                }
+                else
+                {
+                    if(!request()->page)
+                     {
+                         alert()->success('Exam Resumed', 'Your exam has been resumed');
+                        return redirect()->route('current_exam');
+                    }
+                }
+            }
 
             if($user->role == 'student' && $user->locked == false)
             {
