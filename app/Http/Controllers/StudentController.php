@@ -22,7 +22,7 @@ class StudentController extends Controller
         if(auth()->attempt(array('email' => $input['email'], 'password' => $input['password'])))
         {
             $user = auth()->user();
-            $exam = Quiz::where([['start_time', '>', Carbon::now()],['class_id', $user->class_id]])->orderBy('start_time','ASC')->first();
+            $exam = Quiz::where([['class_id', $user->class_id],['start_time', '>', Carbon::now()->addMinutes(-25)]])->orderBy('start_time','ASC')->first();
             $result = QuizResult::where('quiz_id', $exam?->id)->first();
 
             if($user->locked == true)
@@ -36,11 +36,7 @@ class StudentController extends Controller
                 alert()->success('Welcome '."{$user->first_name}",'there is currently no exam scheduled.');
                 return redirect()->route('no_exam');
             }
-            if($result)
-            {
-                alert()->error('Exam Completed', 'Your exam has been completed earlier.');
-                return redirect()->route('finished');
-            }
+
             if($user->role == 'student' && $user->locked == false)
             {
                 session()->put('exam_id', $exam->id);
@@ -88,7 +84,8 @@ class StudentController extends Controller
                 $index = request()->page
                     ? intval(request()->page) + 1 : 2;
             }
-            return redirect(route('current_exam').'?page='.$index);
+            return response()->json(['index'=> $index], 200);
+            //return redirect(route('current_exam').'?page='.$index);
         }
         catch(\Exception $exception)
         {
@@ -156,15 +153,28 @@ class StudentController extends Controller
     {
         try
         {
+            $request = request();
             $score = 0;
             $quiz = Quiz::find($id);
             /* fetch questions vis a vis the response, then mark them */
-            $questions = \App\Models\QuizQuestion::with('response')->where('quiz_id', $id)->get();
-            foreach ($questions as $data)
+            $questions = \App\Models\QuizQuestion::where('quiz_id', $id)->get();
+
+            if(($request->request->count()-6) < $questions->count())
             {
-               if($data['correct'] == $data->response[0]['response'])
-                   $score += $quiz->points;
+                alert()->warning('Incomplete Response', 'Your exam response is not complete');
+                return redirect()->back();
             }
+
+            for($i = 6; $i < $request->request->count(); $i++)
+            {
+                $index = 0;
+                //dd($request->request->getString('opt'."{$questions[$index]->id}"));
+                //dd($questions[$index]->correct);
+               if($request->request->getString('opt'."{$questions[$index]->id}") == $questions[$index]->correct)
+                   $score += $quiz->points;
+                ++$index;
+            }
+            //dd($score);
 
             $quiz->total_point = ($questions->count() * $quiz->points);
             $quiz->save();

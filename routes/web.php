@@ -44,7 +44,7 @@ Route::get('/management/login', [PagesController::class, 'admin_login']);
 Route::post('/admin/login', [AdminController::class, 'post_admin_login'])->name('post_admin_login');
 Route::get('/logout', [AdminController::class, 'logout'])->name('logout');
 
-
+//ADMIN
 Route::middleware(['auth:sanctum','user_access'])->group(function () {
     //------PAGES--------------------------------------
     Route::get('/dashboard', [PagesController::class, 'admin_dashboard'])->name('admin_dashboard');
@@ -108,8 +108,8 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/finished', [PagesController::class, 'finished'])->name('finished');
 
     // REQUESTS
-    Route::post('/respond', [StudentController::class, 'respond'])->name('respond');
-    Route::get('/submit-exam/{id}', [StudentController::class, 'submit'])->name('submit');
+    Route::post('/exams', [StudentController::class, 'respond'])->name('respond');
+    Route::post('/submit-exam/{id}', [StudentController::class, 'submit'])->name('submit');
     Route::get('/clear-choice/{id}', [StudentController::class, 'clear_choice'])->name('clear_choice');
     Route::get('/lock-exam/{id}', [StudentController::class, 'lock_exam'])->name('lock_exam');
 

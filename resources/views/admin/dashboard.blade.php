@@ -3,8 +3,8 @@
 <?php
     $user = auth()->user();
     //--student-------------------------
-   $students = \App\Models\User::where('role','student')->count();
-   $new_students = \App\Models\User::where('role','student')->where('created_at','>', \Carbon\Carbon::now()->subDays(3))->count();
+   $students = \App\Models\User::where('role','=', 'student')->count();
+   $new_students = \App\Models\User::where('role','=','student')->where('created_at','>', \Carbon\Carbon::now()->subDays(3))->count();
 
    //--exams-------------------------
   $concluded = \App\Models\Quiz::where('start_time','<', \Carbon\Carbon::now()->subHours(3))->count();
@@ -66,7 +66,7 @@
                                             </div>
                                             <div class="d-flex align-items-end justify-content-between mt-4">
                                                 <div>
-                                                    <h4 class="fs-22 fw-semibold ff-secondary mb-4"><span class="counter-value" data-target="{{number_format($students)}}">0</span>
+                                                    <h4 class="fs-22 fw-semibold ff-secondary mb-4"><span class="counter-value" data-target="">{{number_format($students)}}</span>
                                                     </h4>
 
                                                 </div>
@@ -92,7 +92,7 @@
                                             </div>
                                             <div class="d-flex align-items-end justify-content-between mt-4">
                                                 <div>
-                                                    <h4 class="fs-22 fw-semibold ff-secondary mb-4"><span class="counter-value" data-target="{{number_format($concluded)}}">0</span></h4>
+                                                    <h4 class="fs-22 fw-semibold ff-secondary mb-4"><span class="counter-value" data-target="">{{number_format($concluded)}}</span></h4>
 
                                                 </div>
                                                 <div class="avatar-sm flex-shrink-0">
@@ -117,7 +117,7 @@
                                             </div>
                                             <div class="d-flex align-items-end justify-content-between mt-4">
                                                 <div>
-                                                    <h4 class="fs-22 fw-semibold ff-secondary mb-4"><span class="counter-value" data-target="{{number_format($ongoing)}}">0</span>
+                                                    <h4 class="fs-22 fw-semibold ff-secondary mb-4"><span class="counter-value" data-target="">{{number_format($ongoing)}}</span>
                                                     </h4>
 
                                                 </div>
@@ -143,7 +143,7 @@
                                             </div>
                                             <div class="d-flex align-items-end justify-content-between mt-4">
                                                 <div>
-                                                    <h4 class="fs-22 fw-semibold ff-secondary mb-4"><span class="counter-value" data-target="{{number_format($classroom)}}">0</span>
+                                                    <h4 class="fs-22 fw-semibold ff-secondary mb-4"><span class="counter-value" data-target="">{{number_format($classroom)}}</span>
                                                     </h4>
                                                 </div>
                                                 <div class="avatar-sm flex-shrink-0">
@@ -168,7 +168,7 @@
                                             </div>
                                             <div class="d-flex align-items-end justify-content-between mt-4">
                                                 <div>
-                                                    <h4 class="fs-22 fw-semibold ff-secondary mb-4"><span class="counter-value" data-target="{{number_format($users)}}">0</span>
+                                                    <h4 class="fs-22 fw-semibold ff-secondary mb-4"><span class="counter-value" data-target="">{{number_format($users)}}</span>
                                                     </h4>
 
                                                 </div>
@@ -196,7 +196,7 @@
                                             </div>
                                             <div class="d-flex align-items-end justify-content-between mt-4">
                                                 <div>
-                                                    <h4 class="fs-22 fw-semibold ff-secondary mb-4"><span class="counter-value" data-target="{{number_format($staffs)}}">0</span></h4>
+                                                    <h4 class="fs-22 fw-semibold ff-secondary mb-4"><span class="counter-value" data-target="">{{number_format($staffs)}}</span></h4>
 
                                                 </div>
                                                 <div class="avatar-sm flex-shrink-0">
@@ -221,7 +221,7 @@
                                             </div>
                                             <div class="d-flex align-items-end justify-content-between mt-4">
                                                 <div>
-                                                    <h4 class="fs-22 fw-semibold ff-secondary mb-4"><span class="counter-value" data-target="{{number_format($locked)}}">0</span>
+                                                    <h4 class="fs-22 fw-semibold ff-secondary mb-4"><span class="counter-value" data-target="">{{number_format($locked)}}</span>
                                                     </h4>
 
                                                 </div>
@@ -248,7 +248,7 @@
                                             </div>
                                             <div class="d-flex align-items-end justify-content-between mt-4">
                                                 <div>
-                                                    <h4 class="fs-22 fw-semibold ff-secondary mb-4"><span class="counter-value" data-target="{{number_format($today)}}">0</span>
+                                                    <h4 class="fs-22 fw-semibold ff-secondary mb-4"><span class="counter-value" data-target="">{{number_format($today)}}</span>
                                                     </h4>
                                                 </div>
                                                 <div class="avatar-sm flex-shrink-0">

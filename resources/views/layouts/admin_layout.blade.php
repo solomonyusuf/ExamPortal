@@ -5,6 +5,7 @@
 
     <meta charset="utf-8" />
     <title>Management Admin </title>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta content="Exam Portal" />
     <!-- App favicon -->
@@ -66,103 +67,100 @@
                         </span>
                         </a>
                     </div>
-                    <div class="d-flex dropdown ms-sm-3 header-item topbar-user">
-                        <button type="button" class="btn" id="page-header-user-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                </div>
+                <div class="d-lg-none dropdown ms-sm-3 header-item">
+                    <button type="button" class="btn " id="page-header-user-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                        <span class="hamburger-icon">
                             <span></span>
                             <span></span>
                             <span></span>
                         </span>
-                        </button>
-                        <div class="dropdown-menu dropdown-menu-end">
-                            <ul style="margin:3px;" class="mb-4 navbar-nav" id="navbar-nav">
-                                <li class="menu-title"><span data-key="t-menu">Menu</span></li>
+                    </button>
+                    <div class="dropdown-menu dropdown-menu-end">
+                        <ul style="margin:3px;" class="mb-4 navbar-nav" id="navbar-nav">
+                            <li class="menu-title"><span data-key="t-menu">Menu</span></li>
+                            <li class="nav-item">
+                                <a class="nav-link menu-link" href="{{route('admin_dashboard')}}"  aria-expanded="false" aria-controls="sidebarDashboards">
+                                    <i class="bx bxs-dashboard"></i> <span data-key="t-dashboards">Dashboard</span>
+                                </a>
+                            </li> <!-- end Dashboard Menu -->
+                            <li class="nav-item">
+                                <a class="nav-link menu-link" href="#sidebarApps" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarApps">
+                                    <i class="bx bx-layer"></i> <span data-key="t-apps">Exams</span>
+                                </a>
+                                <div>
+                                    <ul class="nav nav-sm flex-column">
+                                        <li class="nav-item">
+                                            <a href="{{route('ongoing_exams')}}" class="nav-link" data-key="t-calendar">All Exams </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="{{route('concluded_exams')}}" class="nav-link" data-key="t-chat"> Concluded Exams </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="{{route('scheduled_exams')}}" class="nav-link" data-key="t-chat"> Scheduled Exams </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="{{route('add_exams')}}" class="nav-link" data-key="t-chat"> Add Exam </a>
+                                        </li>
+
+                                    </ul>
+                                </div>
+                            </li>
+                            @if($user->role == 'superadmin')
+                                <li class="menu-title"><i class="ri-more-fill"></i> <span data-key="t-pages">Pages</span></li>
+
                                 <li class="nav-item">
-                                    <a class="nav-link menu-link" href="{{route('admin_dashboard')}}"  aria-expanded="false" aria-controls="sidebarDashboards">
-                                        <i class="bx bxs-dashboard"></i> <span data-key="t-dashboards">Dashboard</span>
-                                    </a>
-                                </li> <!-- end Dashboard Menu -->
-                                <li class="nav-item">
-                                    <a class="nav-link menu-link" href="#sidebarApps" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarApps">
-                                        <i class="bx bx-layer"></i> <span data-key="t-apps">Exams</span>
+                                    <a class="nav-link menu-link" href="#sidebarAuth" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarAuth">
+                                        <i class="bx bx-user-circle"></i> <span data-key="t-authentication">Users & Student</span>
                                     </a>
                                     <div>
                                         <ul class="nav nav-sm flex-column">
                                             <li class="nav-item">
-                                                <a href="{{route('ongoing_exams')}}" class="nav-link" data-key="t-calendar">All Exams </a>
+                                                <a href="{{route('staffs')}}" class="nav-link" data-key="t-basic"> All Staff </a>
+                                            </li>
+
+                                            <li class="nav-item">
+                                                <a href="{{route('students')}}" class="nav-link" data-key="t-basic"> All Student </a>
                                             </li>
                                             <li class="nav-item">
-                                                <a href="{{route('concluded_exams')}}" class="nav-link" data-key="t-chat"> Concluded Exams </a>
+                                                <a href="{{route('create_user')}}" class="nav-link" data-key="t-signin"> Add User
+                                                </a>
+
                                             </li>
+
+
+
                                             <li class="nav-item">
-                                                <a href="{{route('scheduled_exams')}}" class="nav-link" data-key="t-chat"> Scheduled Exams </a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a href="{{route('add_exams')}}" class="nav-link" data-key="t-chat"> Add Exam </a>
+                                                <a href="{{route('locked')}}" class="nav-link"  role="button" aria-expanded="false" aria-controls="sidebarchangePass" data-key="t-password-create">
+                                                    Locked Accounts
+                                                </a>
                                             </li>
 
                                         </ul>
                                     </div>
                                 </li>
-                                @if($user->role == 'superadmin')
-                                    <li class="menu-title"><i class="ri-more-fill"></i> <span data-key="t-pages">Pages</span></li>
 
-                                    <li class="nav-item">
-                                        <a class="nav-link menu-link" href="#sidebarAuth" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarAuth">
-                                            <i class="bx bx-user-circle"></i> <span data-key="t-authentication">Users & Student</span>
-                                        </a>
-                                        <div>
-                                            <ul class="nav nav-sm flex-column">
-                                                <li class="nav-item">
-                                                    <a href="{{route('staffs')}}" class="nav-link" data-key="t-basic"> All Staff </a>
-                                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link menu-link" href="#sidebarUI" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarUI">
+                                        <i class="bx bx-notepad"></i> <span data-key="t-base-ui">Classrooms</span>
+                                    </a>
+                                    <div>
+                                        <ul class="nav nav-sm flex-column">
+                                            <li class="nav-item">
+                                                <a href="{{route('classrooms')}}" class="nav-link" data-key="t-alerts">All Classrooms</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a href="{{route('create_class')}}" class="nav-link" data-key="t-badges">Add Classroom</a>
+                                            </li>
 
-                                                <li class="nav-item">
-                                                    <a href="{{route('students')}}" class="nav-link" data-key="t-basic"> All Student </a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a href="{{route('create_user')}}" class="nav-link" data-key="t-signin"> Add User
-                                                    </a>
-
-                                                </li>
-
-
-
-                                                <li class="nav-item">
-                                                    <a href="{{route('locked')}}" class="nav-link"  role="button" aria-expanded="false" aria-controls="sidebarchangePass" data-key="t-password-create">
-                                                        Locked Accounts
-                                                    </a>
-                                                </li>
-
-                                            </ul>
-                                        </div>
-                                    </li>
-
-                                    <li class="nav-item">
-                                        <a class="nav-link menu-link" href="#sidebarUI" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarUI">
-                                            <i class="bx bx-notepad"></i> <span data-key="t-base-ui">Classrooms</span>
-                                        </a>
-                                        <div>
-                                            <ul class="nav nav-sm flex-column">
-                                                <li class="nav-item">
-                                                    <a href="{{route('classrooms')}}" class="nav-link" data-key="t-alerts">All Classrooms</a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a href="{{route('create_class')}}" class="nav-link" data-key="t-badges">Add Classroom</a>
-                                                </li>
-
-                                            </ul>
-                                        </div>
-                                    </li>
-                                @endif
-                            </ul>
-                        </div>
+                                        </ul>
+                                    </div>
+                                </li>
+                            @endif
+                        </ul>
                     </div>
-
-
-
-
                 </div>
+
 
                 <div class="d-flex align-items-center">
                     <div class="dropdown ms-sm-3 header-item topbar-user">

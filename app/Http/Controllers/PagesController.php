@@ -15,14 +15,14 @@ class PagesController extends Controller
        if(!session()->has('exam_id'))
            return redirect()->back();
        $quiz = \App\Models\Quiz::find(session()->get('exam_id'));
-       $questions = \App\Models\QuizQuestion::where('quiz_id', $quiz->id)->paginate(1);
+       $questions = \App\Models\QuizQuestion::where('quiz_id', $quiz->id)->get();
 
        /* check if its time*/
-//       if(Carbon::parse($quiz->start_time) > Carbon::now() || Carbon::parse($quiz->start_time)->addHours(3) < Carbon::now())
-//       {
-//           alert()->success('No Exam Scheduled', 'Sorry no exam has been scheduled.');
-//           return redirect()->route('no_exam');
-//       }
+       if(Carbon::parse($quiz->start_time) < Carbon::now()->addMinutes(-25) || Carbon::parse($quiz->start_time)->addHours(2) < Carbon::now())
+       {
+           alert()->success('No Exam Scheduled', 'Sorry no exam has been scheduled.');
+           return redirect()->route('no_exam');
+       }
        /* get attempt record, if there is any and its expired redirect the user*/
        $attempt = \App\Models\QuizAttempt::where([['quiz_id', $quiz->id], ['users_id', auth()->user()?->id]])->first();
        if($attempt)
