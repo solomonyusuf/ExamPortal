@@ -159,7 +159,7 @@ class StudentController extends Controller
             /* fetch questions vis a vis the response, then mark them */
             $questions = \App\Models\QuizQuestion::where('quiz_id', $id)->get();
 
-            if(($request->request->count()-6) < $questions->count())
+            if(($request->request->count()-6) == 0)
             {
                 alert()->warning('Incomplete Response', 'Your exam response is not complete');
                 return redirect()->back();

@@ -62,7 +62,7 @@
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                        <button type="submit"  class="btn btn-primary">Save changes</button>
+                                        <button type="submit" id="submitQuizButton"  class="btn btn-primary">Save changes</button>
                                     </div>
                                 </div>
                             </div>
@@ -291,14 +291,14 @@
 </script>
 <script>
     $('#love').paginate({perPage:1,  scope: 'li'});
-    // document.addEventListener('visibilitychange', function() {
-    //     if (document.hidden) {
-    //         //select the lock button and lock
-    //         var lock = document.getElementById("myLock");
-    //         lock.click();
-    //         console.log('Page is now hidden');
-    //     }
-    // });
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            //select the lock button and lock
+            var lock = document.getElementById("myLock");
+            lock.click();
+            console.log('Page is now hidden');
+        }
+    });
     // Timer countdown
 
     var totalTime = {{ $quiz->duration}} * 60; // Convert minutes to seconds
