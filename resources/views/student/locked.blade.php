@@ -26,7 +26,7 @@ $user = auth()->user();?>
                 </a>
             </div>
         </div>
-        <div class="steps-col col-md-9">
+        <div class="col-md-9">
             <div class="wrapper">
 
                 <div id="steps" class="show-section">

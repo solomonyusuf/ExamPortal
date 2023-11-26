@@ -36,6 +36,7 @@ class StudentController extends Controller
                 alert()->success('Welcome '."{$user->first_name}",'there is currently no exam scheduled.');
                 return redirect()->route('no_exam');
             }
+
             $attempt = \App\Models\QuizAttempt::where([['quiz_id', $exam?->id], ['users_id', auth()->user()?->id]])->first();
             if($attempt)
             {
