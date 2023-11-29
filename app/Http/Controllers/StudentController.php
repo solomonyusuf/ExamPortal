@@ -50,7 +50,7 @@ class StudentController extends Controller
                     if(!request()->page)
                      {
                          alert()->success('Exam Resumed', 'Your exam has been resumed');
-                        return redirect()->route('current_exam');
+                        return redirect(route('current_exam').'#paginate-1');
                     }
                 }
             }
@@ -177,11 +177,11 @@ class StudentController extends Controller
             /* fetch questions vis a vis the response, then mark them */
             $questions = \App\Models\QuizQuestion::where('quiz_id', $id)->get();
 
-            if(($request->request->count()-6) == 0)
-            {
-                alert()->warning('Incomplete Response', 'Your exam response is not complete');
-                return redirect()->back();
-            }
+//            if(($request->request->count()-6) == 0)
+//            {
+//                alert()->warning('Incomplete Response', 'Your exam response is not complete');
+//                return redirect()->back();
+//            }
 
             for($i = 6; $i < $request->request->count(); $i++)
             {

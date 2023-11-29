@@ -5,7 +5,7 @@
   $user = auth()->user();
   $count = \App\Models\QuizQuestion::where('quiz_id', $quiz->id)->count();
   $answered = count(\App\Http\Controllers\StudentController::get_all_response($quiz->id));
-
+  $no = 0;
 ?>
 <style>
     .main-heading{font-size:small;}
@@ -89,7 +89,7 @@
                         $response_exist = \App\Http\Controllers\StudentController::check_question($data->id);
 
                         ?>
-                            <div class="step-number">Question <span>{{request()->page != null ? request()->page : 1}}</span>/{{$count}}</div>
+                            <div class="step-number">Question <span id="count">{{++$no}}</span>/{{$count}}</div>
                             <div class="main-heading">
                                 {!! $data->title !!}
                             </div>
@@ -247,13 +247,16 @@
 
             {{--                                </div>--}}
             {{--                                @endif--}}
-                                        </div>
+{{--                                            <button id="next" type="button" class="step-number">--}}
+{{--                                                                 Continue--}}
+{{--                                                               </button>--}}
+                                                    </div>
 
-                                    </section>
-                                </div>
-                        </li>
-                 @endforeach
-{{--                    {{$questions->links()}}--}}
+                                                </section>
+                                            </div>
+                                    </li>
+                             @endforeach
+            {{--                    {{$questions->links()}}--}}
 
 
 
@@ -291,14 +294,20 @@
 </script>
 <script>
     $('#love').paginate({perPage:1,  scope: 'li'});
-    document.addEventListener('visibilitychange', function() {
-        if (document.hidden) {
-            //select the lock button and lock
-            var lock = document.getElementById("myLock");
-            lock.click();
-            console.log('Page is now hidden');
-        }
+
+    $('#next').on('click', function() {
+        document.getElementsByClassName(".page-next")[0].href().trigger("click");
+        console.log(document.getElementsByClassName("page-next")[0]);
     });
+    // document.addEventListener('visibilitychange', function() {
+    //     if (document.hidden) {
+    //         //select the lock button and lock
+    //         var lock = document.getElementById("myLock");
+    //         lock.click();
+    //         console.log('Page is now hidden');
+    //     }
+    // });
+
     // Timer countdown
 
     var totalTime = {{ $quiz->duration}} * 60; // Convert minutes to seconds
