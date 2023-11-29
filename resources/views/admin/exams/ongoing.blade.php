@@ -22,6 +22,7 @@ $ongoing = \App\Models\Quiz::where('open', '=', true)->orderBy('created_at', 'DE
                                     <tr>
                                         <th>Name</th>
                                         <th>Exam Access</th>
+                                        <th>Class</th>
                                         <th>Date</th>
                                         <th>Results</th>
                                         <th></th>
@@ -37,6 +38,8 @@ $ongoing = \App\Models\Quiz::where('open', '=', true)->orderBy('created_at', 'DE
                                                     @else
                                                         False
                                                     @endif</span></td>
+                                            <td>{{\App\Models\StudentClass::find($data->class_id)?->name}}</td>
+
                                             <td>{{$data->created_at}}</td>
                                             <td><a href="{{route('result', $data->id)}}" class="btn btn-sm btn-primary">Results</a></td>
                                             <td><a href="{{route('edit_exams', $data->id)}}" class="btn btn-sm btn-primary">Questions</a></td>

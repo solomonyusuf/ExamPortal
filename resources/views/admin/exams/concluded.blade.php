@@ -21,6 +21,7 @@ $concluded = \App\Models\Quiz::where('open', '=', false)->orderBy('created_at', 
                                     <tr>
                                         <th>Name</th>
                                         <th>Exam Access</th>
+                                        <th>Class</th>
                                         <th>Status</th>
                                         <th>Date</th>
                                         <th>Results</th>
@@ -40,6 +41,7 @@ $concluded = \App\Models\Quiz::where('open', '=', false)->orderBy('created_at', 
                                                     False
                                                     @endif
                                                 </span></td>
+                                            <td>{{\App\Models\StudentClass::find($data->class_id)?->name}}</td>
                                             <td><span class="btn-sm btn-success">concluded</span></td>
                                             <td>{{$data->created_at}}</td>
                                             <td><a href="{{route('result', $data->id)}}" class="btn btn-sm btn-primary">Results</a></td>
