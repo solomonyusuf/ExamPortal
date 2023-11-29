@@ -49,11 +49,13 @@
                             </div>
                             <!--end col-->
                             <div class="col-xxl-3 col-md-6">
-                                <div>
-                                    <label for="readonlyInput" class="form-label">Start Time</label>
-                                    <input required type="datetime-local" name="start_time" class="form-control" id="readonlyInput">
-                                </div>
-                            </div>
+                            <label for="exampleDataList" class="form-label">Exam Access</label>
+                            <select name="open" required class="form-control" id="datalistOptions">
+                                    <option>Select one</option>
+                                    <option value="1">True</option>
+                                    <option value="0">False</option>
+                            </select>
+                        </div>
                         </div>
                     </div>
                 <div class="card-footer">

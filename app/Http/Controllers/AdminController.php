@@ -6,6 +6,7 @@ use App\Models\Quiz;
 use App\Models\QuizQuestion;
 use App\Models\StudentClass;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -64,7 +65,8 @@ class AdminController extends Controller
                 'points'=> $request->points,
                 'total_point'=> $request->total_point,
                 'duration'=> $request->duration,
-                'start_time'=> $request->start_time
+                'open'=> $request->open,
+                'start_time'=> Carbon::now()
             ));
             alert()->success('Quiz Added','Procced to add questions, your quiz has been added successfully');
             return redirect()->route('edit_exams',$quiz->id);
@@ -88,7 +90,8 @@ class AdminController extends Controller
                 'points'=> $request->points,
                 'total_point'=> $request->total_point,
                 'duration'=> $request->duration,
-                'start_time'=> $request->start_time
+                'open'=> $request->open,
+                'start_time'=> Carbon::now()
             ));
             toast('Update Sucessful', 'success');
         }

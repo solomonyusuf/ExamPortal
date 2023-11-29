@@ -272,6 +272,15 @@
     </div>
         </form>
 </main>
+<style>
+    .paginate-pagination{
+        font-size:x-large;
+
+    }
+    .page{
+        padding: 35px;
+    }
+</style>
 <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
 <script src="{{asset('jquery.paginate.js')}}"></script>
 <script>
@@ -311,9 +320,9 @@
     // Timer countdown
 
     var totalTime = {{ $quiz->duration}} * 60; // Convert minutes to seconds
-    var saved_countdown = localStorage.getItem('saved_time');
+    var saved_countdown = localStorage.getItem('saved_countdown');
     if(saved_countdown == null) {
-       // localStorage.setItem('saved_countdown', totalTime);
+       //localStorage.setItem('saved_countdown', totalTime);
     } else {
         totalTime = saved_countdown;
     }

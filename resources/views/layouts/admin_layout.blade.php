@@ -91,13 +91,13 @@
                                 <div>
                                     <ul class="nav nav-sm flex-column">
                                         <li class="nav-item">
-                                            <a href="{{route('ongoing_exams')}}" class="nav-link" data-key="t-calendar">All Exams </a>
+                                            <a href="{{route('ongoing_exams')}}" class="nav-link" data-key="t-calendar">Ongoing Exams </a>
                                         </li>
                                         <li class="nav-item">
                                             <a href="{{route('concluded_exams')}}" class="nav-link" data-key="t-chat"> Concluded Exams </a>
                                         </li>
                                         <li class="nav-item">
-                                            <a href="{{route('scheduled_exams')}}" class="nav-link" data-key="t-chat"> Scheduled Exams </a>
+                                            <a href="{{route('scheduled_exams')}}" class="nav-link" data-key="t-chat"> All Exams </a>
                                         </li>
                                         <li class="nav-item">
                                             <a href="{{route('add_exams')}}" class="nav-link" data-key="t-chat"> Add Exam </a>
@@ -230,13 +230,13 @@
                         <div class="collapse menu-dropdown" id="sidebarApps">
                             <ul class="nav nav-sm flex-column">
                                 <li class="nav-item">
-                                    <a href="{{route('ongoing_exams')}}" class="nav-link" data-key="t-calendar">All Exams </a>
+                                    <a href="{{route('ongoing_exams')}}" class="nav-link" data-key="t-calendar">Ongoing Exams </a>
                                 </li>
                                 <li class="nav-item">
                                     <a href="{{route('concluded_exams')}}" class="nav-link" data-key="t-chat"> Concluded Exams </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="{{route('scheduled_exams')}}" class="nav-link" data-key="t-chat"> Scheduled Exams </a>
+                                    <a href="{{route('scheduled_exams')}}" class="nav-link" data-key="t-chat"> All Exams </a>
                                 </li>
                                 <li class="nav-item">
                                     <a href="{{route('add_exams')}}" class="nav-link" data-key="t-chat"> Add Exam </a>

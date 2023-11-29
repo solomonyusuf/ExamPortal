@@ -1,7 +1,7 @@
 @extends('layouts.admin_layout')
 
 <?php
-$ongoing = \App\Models\Quiz::orderBy('created_at', 'DESC')->get();
+$ongoing = \App\Models\Quiz::where('open', '=', true)->orderBy('created_at', 'DESC')->get();
 ?>
 
 <div class="main-content">
@@ -10,7 +10,7 @@ $ongoing = \App\Models\Quiz::orderBy('created_at', 'DESC')->get();
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title mb-0">All Exams</h4>
+                        <h4 class="card-title mb-0">Ongoing Exams</h4>
                     </div><!-- end card header -->
 
                     <div class="card-body">
@@ -21,7 +21,7 @@ $ongoing = \App\Models\Quiz::orderBy('created_at', 'DESC')->get();
                                     <thead>
                                     <tr>
                                         <th>Name</th>
-                                        <th>Start</th>
+                                        <th>Exam Access</th>
                                         <th>Date</th>
                                         <th>Results</th>
                                         <th></th>
@@ -32,7 +32,11 @@ $ongoing = \App\Models\Quiz::orderBy('created_at', 'DESC')->get();
                                     @foreach($ongoing as $data)
                                         <tr>
                                             <td>{{$data->name}}</td>
-                                            <td>{{$data->start_time}}</td>
+                                            <td><span class="btn btn-sm btn-default">  @if($data->open)
+                                                        True
+                                                    @else
+                                                        False
+                                                    @endif</span></td>
                                             <td>{{$data->created_at}}</td>
                                             <td><a href="{{route('result', $data->id)}}" class="btn btn-sm btn-primary">Results</a></td>
                                             <td><a href="{{route('edit_exams', $data->id)}}" class="btn btn-sm btn-primary">Questions</a></td>

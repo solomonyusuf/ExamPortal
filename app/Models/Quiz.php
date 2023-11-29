@@ -20,6 +20,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $points
  * @property int $total_point
  * @property int $duration
+ * @property bool $open
  * @property Carbon $start_time
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
@@ -43,6 +44,7 @@ class Quiz extends Model
 		'id',
 		'class_id',
 		'name',
+		'open',
 		'points',
 		'total_point',
 		'duration',

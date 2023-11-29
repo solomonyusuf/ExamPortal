@@ -1,7 +1,7 @@
 @extends('layouts.admin_layout')
 
 <?php
-$concluded = \App\Models\Quiz::where('start_time','<', \Carbon\Carbon::now()->subHours(3))->orderBy('created_at', 'DESC')->get();
+$concluded = \App\Models\Quiz::where('open', '=', false)->orderBy('created_at', 'DESC')->get();
 ?>
 <div class="main-content">
     <div class="page-content">
@@ -20,7 +20,7 @@ $concluded = \App\Models\Quiz::where('start_time','<', \Carbon\Carbon::now()->su
                                     <thead>
                                     <tr>
                                         <th>Name</th>
-                                        <th>Start</th>
+                                        <th>Exam Access</th>
                                         <th>Status</th>
                                         <th>Date</th>
                                         <th>Results</th>
@@ -33,7 +33,13 @@ $concluded = \App\Models\Quiz::where('start_time','<', \Carbon\Carbon::now()->su
                                     @foreach($concluded as $data)
                                         <tr>
                                             <td>{{$data->name}}</td>
-                                            <td>{{$data->start_time}}</td>
+                                            <td><span class="btn btn-sm btn-default">
+                                                    @if($data->open)
+                                                        True
+                                                    @else
+                                                    False
+                                                    @endif
+                                                </span></td>
                                             <td><span class="btn-sm btn-success">concluded</span></td>
                                             <td>{{$data->created_at}}</td>
                                             <td><a href="{{route('result', $data->id)}}" class="btn btn-sm btn-primary">Results</a></td>

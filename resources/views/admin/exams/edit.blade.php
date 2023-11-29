@@ -58,13 +58,21 @@
                                     @endforeach
                                 </select>
                             </div>
-                            <!--end col-->
                             <div class="col-xxl-3 col-md-6">
-                                <div>
-                                    <label for="readonlyInput" class="form-label">Start Time</label>
-                                    <input required type="datetime-local" value="{{$exam->start_time}}" name="start_time" class="form-control" id="readonlyInput">
-                                </div>
+                                <label for="exampleDataList" class="form-label">Exam Access</label>
+                                <select name="open" class="form-control" id="datalistOptions">
+
+                                        @if($exam->open)
+                                        <option value="1" selected>True</option>
+                                        <option value="0">False</option>
+                                        @else
+                                        <option value="1">True</option>
+                                        <option value="0" selected>False</option>
+                                        @endif
+
+                                </select>
                             </div>
+
                         </div>
                     </div>
                     <div class="card-footer">

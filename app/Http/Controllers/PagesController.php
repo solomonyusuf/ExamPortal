@@ -17,8 +17,8 @@ class PagesController extends Controller
        $quiz = \App\Models\Quiz::find(session()->get('exam_id'));
        $questions = \App\Models\QuizQuestion::where('quiz_id', $quiz->id)->get();
 
-       /* check if its time*/
-       if(Carbon::parse($quiz->start_time) < Carbon::now()->addMinutes(-25) || Carbon::parse($quiz->start_time)->addHours(2) < Carbon::now())
+       /* check if its quiz is open*/
+       if(!$quiz->open)
        {
            alert()->success('No Exam Scheduled', 'Sorry no exam has been scheduled.');
            return redirect()->route('no_exam');
@@ -28,7 +28,7 @@ class PagesController extends Controller
        if($attempt)
        {
            session()->put('attempt_id', $attempt->id);
-           if(\Carbon\Carbon::now() >= \Carbon\Carbon::parse($attempt->start_time)->addMinutes($quiz->duration))
+           if(!$quiz->open)
            {
                return redirect()->route('finished');
            }

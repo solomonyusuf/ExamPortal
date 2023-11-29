@@ -1,8 +1,7 @@
 @extends('layouts.admin_layout')
 
 <?php
-$scheduled = \App\Models\Quiz::where('start_time','>', \Carbon\Carbon::now())->orderBy('created_at', 'DESC')->get();
-
+$all = \App\Models\Quiz::orderBy('created_at', 'DESC')->get();
 ?>
 
 <div class="main-content">
@@ -11,7 +10,7 @@ $scheduled = \App\Models\Quiz::where('start_time','>', \Carbon\Carbon::now())->o
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title mb-0">Scheduled Exams</h4>
+                        <h4 class="card-title mb-0">All Exams</h4>
                     </div><!-- end card header -->
 
                     <div class="card-body">
@@ -22,22 +21,27 @@ $scheduled = \App\Models\Quiz::where('start_time','>', \Carbon\Carbon::now())->o
                                     <thead>
                                     <tr>
                                         <th>Name</th>
-                                        <th>Start</th>
-                                        <th>Status</th>
+                                        <th>Exam Access</th>
                                         <th>Date</th>
+                                        <th>Results</th>
                                         <th></th>
                                         <th></th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    @foreach($scheduled as $data)
+                                    @foreach($all as $data)
                                         <tr>
                                             <td>{{$data->name}}</td>
-                                            <td>{{$data->start_time}}</td>
-                                            <td><span class="btn-sm btn-success">scheduled</span></td>
+                                            <td><span class="btn btn-sm btn-default">  @if($data->open)
+                                                        True
+                                                    @else
+                                                        False
+                                                    @endif</span></td>
                                             <td>{{$data->created_at}}</td>
+                                            <td><a href="{{route('result', $data->id)}}" class="btn btn-sm btn-primary">Results</a></td>
                                             <td><a href="{{route('edit_exams', $data->id)}}" class="btn btn-sm btn-primary">Questions</a></td>
                                             <td><a href="{{route('delete_exam', $data->id)}}" class="btn btn-sm btn-danger">Delete</a></td>
+
                                         </tr>
                                     @endforeach
 

@@ -22,8 +22,7 @@ class StudentController extends Controller
         if(auth()->attempt(array('email' => $input['email'], 'password' => $input['password'])))
         {
             $user = auth()->user();
-            $exam = Quiz::where([['class_id', $user->class_id],['start_time', '>', Carbon::now()->addMinutes(-25)]])->orderBy('start_time','ASC')->first();
-            $result = QuizResult::where('quiz_id', $exam?->id)->first();
+            $exam = Quiz::where([['class_id', $user->class_id],['open', '=', true]])->first();
 
             if($user->locked == true)
             {
@@ -36,12 +35,17 @@ class StudentController extends Controller
                 alert()->success('Welcome '."{$user->first_name}",'there is currently no exam scheduled.');
                 return redirect()->route('no_exam');
             }
+            if(!$exam->open)
+            {
+                alert()->success('Welcome '."{$user->first_name}",'there is currently no exam scheduled.');
+                return redirect()->route('no_exam');
+            }
 
             $attempt = \App\Models\QuizAttempt::where([['quiz_id', $exam?->id], ['users_id', auth()->user()?->id]])->first();
             if($attempt)
             {
                 session()->put('attempt_id', $attempt->id);
-                if(\Carbon\Carbon::now() >= \Carbon\Carbon::parse($attempt->start_time)->addMinutes($exam->duration))
+                if(!$exam?->open)
                 {
                     return redirect()->route('finished');
                 }
@@ -50,7 +54,7 @@ class StudentController extends Controller
                     if(!request()->page)
                      {
                          alert()->success('Exam Resumed', 'Your exam has been resumed');
-                        return redirect(route('current_exam').'#paginate-1');
+                        return redirect()->route('current_exam');
                     }
                 }
             }
@@ -197,10 +201,12 @@ class StudentController extends Controller
             $quiz->total_point = ($questions->count() * $quiz->points);
             $quiz->save();
 
+            $percentage = ($score * 100)/$quiz->total_point;
+
             QuizResult::create(array(
                 'quiz_id'=> $id ,
                 'users_id'=> auth()->user()?->id,
-                'score'=> $score
+                'score'=> $percentage
             ));
 
             alert()->success('Exam Ended', 'Your exam ended successfully');

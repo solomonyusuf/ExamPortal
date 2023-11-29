@@ -7,8 +7,8 @@
    $new_students = \App\Models\User::where('role','=','student')->where('created_at','>', \Carbon\Carbon::now()->subDays(3))->count();
 
    //--exams-------------------------
-  $concluded = \App\Models\Quiz::where('start_time','<', \Carbon\Carbon::now()->subHours(3))->count();
-  $ongoing = \App\Models\Quiz::where('start_time','>', \Carbon\Carbon::now()->subHours(2))->count();
+  $concluded = \App\Models\Quiz::where('open','=', false)->count();
+  $ongoing = \App\Models\Quiz::where('open','=', true)->count();
 
   //---classroom-----------------------
   $classroom = \App\Models\StudentClass::count();

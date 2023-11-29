@@ -51,7 +51,7 @@ Route::middleware(['auth:sanctum','user_access'])->group(function () {
     //EXAM
     Route::get('/ongoing/exams', [PagesController::class, 'ongoing_exams'])->name('ongoing_exams');
     Route::get('/concluded/exams', [PagesController::class, 'concluded_exams'])->name('concluded_exams');
-    Route::get('/scheduled/exams', [PagesController::class, 'scheduled_exams'])->name('scheduled_exams');
+    Route::get('/all/exams', [PagesController::class, 'scheduled_exams'])->name('scheduled_exams');
     Route::get('/add/exams', [PagesController::class, 'add_exams'])->name('add_exams');
     Route::get('/edit/exams/{id}', [PagesController::class, 'edit_exams'])->name('edit_exams');
     Route::get('/edit/question/{id}', [PagesController::class, 'edit_question'])->name('edit_question');
