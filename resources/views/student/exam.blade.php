@@ -59,6 +59,7 @@
                                     </div>
                                     <div class="modal-body">
                                         <h5>Are you sure you want to submit?</h5>
+                                        <input hidden id="storage" name="storage" type="number"/>
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -136,7 +137,13 @@
                                                         {{$data->d}}
                                                     </label>
                                                 </div>
+                                                <nav class="paginate-pagination paginate-pagination-0" data-parent="0">
+                                                    <ul>
 
+                                                        <li><a href="#" data-page="prev" class="page page-prev"> «</a></li>
+                                                        <li><a href="#" data-page="next" class="page page-next"> »</a></li>
+                                                    </ul>
+                                                </nav>
                                             </div>
                                             <!-- Step 1 form  -->
             {{--                                @if($response_exist)--}}
@@ -259,7 +266,6 @@
             {{--                    {{$questions->links()}}--}}
 
 
-
                 </ul>
             </form>
             <form action="{{route('lock_exam', $quiz->id)}}" method="get">
@@ -320,9 +326,9 @@
     // Timer countdown
 
     var totalTime = {{ $quiz->duration}} * 60; // Convert minutes to seconds
-    var saved_countdown = localStorage.getItem('saved_countdown');
+    var saved_countdown = localStorage.getItem('saved_time');
     if(saved_countdown == null) {
-       //localStorage.setItem('saved_countdown', totalTime);
+       //localStorage.setItem('saved_time', totalTime);
     } else {
         totalTime = saved_countdown;
     }
@@ -351,6 +357,7 @@
             totalTime--;
             localStorage.setItem('saved_time', totalTime);
         }
+        document.getElementById('storage').value = totalTime;
     }, 1000);
 
     $('#myModal').on('shown.bs.modal', function () {

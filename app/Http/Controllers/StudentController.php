@@ -23,7 +23,7 @@ class StudentController extends Controller
         {
             $user = auth()->user();
             $exam = Quiz::where([['class_id', $user->class_id],['open', '=', true]])->first();
-
+            session()->put('exam_id', $exam?->id);
             if($user->locked == true)
             {
                 alert()->error('Account Locked', 'Your account has been placed on lockdown, contact the nearest invigilator.');
@@ -181,12 +181,11 @@ class StudentController extends Controller
             /* fetch questions vis a vis the response, then mark them */
             $questions = \App\Models\QuizQuestion::where('quiz_id', $id)->get();
 
-//            if(($request->request->count()-6) == 0)
-//            {
-//                alert()->warning('Incomplete Response', 'Your exam response is not complete');
-//                return redirect()->back();
-//            }
-
+            if(($request->request->count()-7) == 0 && intval($request->storage) > 0)
+            {
+                alert()->warning('Incomplete Response', 'Your exam response is not complete');
+                return redirect()->back();
+            }
             for($i = 6; $i < $request->request->count(); $i++)
             {
                 $index = 0;

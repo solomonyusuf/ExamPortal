@@ -47,3 +47,4 @@ $user = auth()->user();?>
     </div>
 </main>
 <script src="{{asset('student/assets/js/securitychecks.js')}}"></script>
+<script>localStorage.removeItem('saved_time');</script>
