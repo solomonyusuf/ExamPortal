@@ -25,12 +25,8 @@
                     <div class="logo-icon">
                         <img style="height:50px;" src="{{asset('assets/images/quiz.png')}}" alt="BeRifma"></div>
                 </div>
-                <div class="card mb-4">
-                    <div class="card-body">
-                        <h2 id="timeRemaining">00 : 00</h2>
-                    </div>
-                </div>
-                <div class="card" style="margin-top:40px;">
+
+                <div class="card" style="margin-bottom:80px;">
                     <div class="card-body">
                         <div class="card-title">
                             <img src="{{asset($user->image)}}" style="height:150px;border-radius:20px;" />
@@ -58,12 +54,13 @@
                                         </button>
                                     </div>
                                     <div class="modal-body">
-                                        <h5>Are you sure you want to submit?</h5>
+                                        <img class="img-fluid" src="{{asset($user->image)}}" style="height:150px;border-radius:75px;" />
+                                        <h5>Dear {{$user->first_name}}, are you sure you want to submit? ensure you have selected all your options completely. Once submission is done you cannot make any changes.</h5>
                                         <input hidden id="storage" name="storage" type="number"/>
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                        <button type="submit" id="submitQuizButton"  class="btn btn-primary">Save changes</button>
+                                        <button type="submit" id="submitQuizButton"  class="btn btn-primary">End Exam</button>
                                     </div>
                                 </div>
                             </div>
@@ -71,12 +68,16 @@
 
                        </div>
                 </div>
-
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h2 id="timeRemaining">00 : 00</h2>
+                    </div>
+                </div>
             </div>
         </div>
         <div class=" col-md-9">
 
-            <div class="wrapper" >
+            <div class="" style="margin:5px;" >
                 <div class="card mb-4">
                     <div class="card-body">
                         <h2 id="timeRemaining2">00 : 00</h2>
@@ -110,28 +111,28 @@
                                                 <div class="child1 radio-field">
                                                     <input type="text" hidden name="id" value="{{$data->id}}">
                                                     <input type="text" hidden name="quiz_id" value="{{$data->quiz_id}}">
-                                                    <input type="radio" onclick="handleIncrement()" name="opt{{$data->id}}" value="{{$data->a}}">
+                                                    <input type="radio" id="a{{$no}}"  onclick="handleIncrement({{$no}})" name="opt{{$data->id}}" value="{{$data->a}}">
                                                     <label>
                                                         <span>A</span>
                                                         {{$data->a}}
                                                     </label>
                                                 </div>
                                                 <div class="child2 radio-field delay-100ms">
-                                                    <input type="radio" onclick="handleIncrement()" name="opt{{$data->id}}" value="{{$data->b}}">
+                                                    <input type="radio" id="b" onclick="handleIncrement({{$no}})" name="opt{{$data->id}}" value="{{$data->b}}">
                                                     <label>
                                                         <span>B</span>
                                                         {{$data->b}}
                                                     </label>
                                                 </div>
                                                 <div class="child3 radio-field delay-200ms">
-                                                    <input type="radio" onclick="handleIncrement()" name="opt{{$data->id}}" value="{{$data->c}}">
+                                                    <input type="radio" id="c" onclick="handleIncrement({{$no}})" name="opt{{$data->id}}" value="{{$data->c}}">
                                                     <label>
                                                         <span>C</span>
                                                         {{$data->c}}
                                                     </label>
                                                 </div>
                                                 <div class="child4 radio-field delay-300ms">
-                                                    <input type="radio" onclick="handleIncrement()" name="opt{{$data->id}}" value="{{$data->d}}">
+                                                    <input type="radio" id="d" onclick="handleIncrement({{$no}})" name="opt{{$data->id}}" value="{{$data->d}}">
                                                     <label>
                                                         <span>D</span>
                                                         {{$data->d}}
@@ -140,8 +141,8 @@
                                                 <nav class="paginate-pagination paginate-pagination-0" data-parent="0">
                                                     <ul>
 
-                                                        <li><a href="#" data-page="prev" class="page page-prev"> «</a></li>
-                                                        <li><a href="#" data-page="next" class="page page-next"> »</a></li>
+                                                        <li><a href="#" data-page="prev" class="page page-prev" style="color:white;background-color: #00909d;"> «</a></li>
+                                                        <li><a href="#" data-page="next" class="page page-next" style="color:white;background-color: #00909d;"> »</a></li>
                                                     </ul>
                                                 </nav>
                                             </div>
@@ -283,13 +284,23 @@
         font-size:x-large;
 
     }
+  li.a{
+        color:white;background-color: #00909d;
+    }
     .page{
         padding: 35px;
     }
+    .response{
+        background-color:#00909d;
+        color:white;
+    }
+    .active{color:red;}
+
 </style>
 <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
 <script src="{{asset('jquery.paginate.js')}}"></script>
 <script>
+    document.getElementById('form').reset();
     // Select total count
     const totalCount = document.getElementById("total");
 
@@ -298,10 +309,11 @@
 
     // Display initial count value
     totalCount.innerHTML = count;
-    const handleIncrement = () => {
-        count++;
-        totalCount.innerHTML = count;
-    };
+
+    function handleIncrement(count){
+        $(`.page-${count}`).addClass('response');
+    }
+
     const incrementCount = document.getElementById("increment");
 
     // Add click event to buttons
@@ -363,6 +375,9 @@
     $('#myModal').on('shown.bs.modal', function () {
         $('#myInput').trigger('focus')
     })
+    $(window).bind("beforeunload", function(){
+        return confirm("Do you really want to refresh? you will loose all your selected options");
+    });
 
 </script>
 
