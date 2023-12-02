@@ -326,14 +326,14 @@
         document.getElementsByClassName(".page-next")[0].href().trigger("click");
         console.log(document.getElementsByClassName("page-next")[0]);
     });
-    // document.addEventListener('visibilitychange', function() {
-    //     if (document.hidden) {
-    //         //select the lock button and lock
-    //         var lock = document.getElementById("myLock");
-    //         lock.click();
-    //         console.log('Page is now hidden');
-    //     }
-    // });
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            //select the lock button and lock
+            var lock = document.getElementById("myLock");
+            lock.click();
+            console.log('Page is now hidden');
+        }
+    });
 
     // Timer countdown
 
