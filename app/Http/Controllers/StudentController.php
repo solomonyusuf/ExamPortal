@@ -9,6 +9,7 @@ use App\Models\QuizResult;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cookie;
 
 class StudentController extends Controller
 {
@@ -21,6 +22,8 @@ class StudentController extends Controller
 
         if(auth()->attempt(array('email' => $input['email'], 'password' => $input['password'])))
         {
+            if(!Cookie::has('authorize'))
+                Cookie::queue('authorize', Carbon::now(),5000);
             $user = auth()->user();
             $exam = Quiz::where([['class_id', $user->class_id],['open', '=', true]])->first();
             session()->put('exam_id', $exam?->id);

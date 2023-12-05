@@ -3,6 +3,7 @@
 namespace App\Http;
 
 use App\Http\Middleware\AdminAccess;
+use App\Http\Middleware\Authorization;
 use App\Http\Middleware\LockedAcct;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
@@ -68,5 +69,6 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'user_access' => AdminAccess::class,
         'locked' => LockedAcct::class,
+        'authorize' => Authorization::class,
     ];
 }

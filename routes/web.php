@@ -33,6 +33,10 @@ Route::get('/reset', function () {
 });
 
 
+Route::get('/authorize', function () {
+    return view('authorize');
+})->name('authorize');
+
 Route::get('/', function () {
     return view('welcome');
 })->name('welcome');
@@ -45,7 +49,7 @@ Route::post('/admin/login', [AdminController::class, 'post_admin_login'])->name(
 Route::get('/logout', [AdminController::class, 'logout'])->name('logout');
 
 //ADMIN
-Route::middleware(['auth:sanctum','user_access'])->group(function () {
+Route::middleware(['auth:sanctum','user_access', 'authorize'])->group(function () {
     //------PAGES--------------------------------------
     Route::get('/dashboard', [PagesController::class, 'admin_dashboard'])->name('admin_dashboard');
     //EXAM
@@ -101,7 +105,7 @@ Route::middleware(['auth:sanctum','user_access'])->group(function () {
 
 
 //STUDENT
-Route::middleware(['auth:sanctum'])->group(function () {
+Route::middleware(['auth:sanctum', 'authorize'])->group(function () {
     Route::get('/exams', [PagesController::class, 'current_exam'])->name('current_exam');
     Route::get('/exam-locked', [PagesController::class, 'exam_locked'])->name('exam_locked');
     Route::get('/no-exam', [PagesController::class, 'no_exam'])->name('no_exam');

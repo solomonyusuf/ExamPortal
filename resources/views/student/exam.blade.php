@@ -84,7 +84,7 @@
 
                     </div>
                 </div>
-                <ul class="no-bullets" id="love">
+                <ul class="no-bullets card card-body" id="love">
                 @foreach($questions as $data)
                         <li>
                     <?php
@@ -92,7 +92,7 @@
 
                         ?>
                             <div class="step-number">Question <span id="count">{{++$no}}</span>/{{$count}}</div>
-                            <div class="main-heading">
+                            <div style="font-size:x-large;">
                                 {!! $data->title !!}
                             </div>
 
@@ -282,6 +282,7 @@
 <style>
     .paginate-pagination{
         font-size:x-large;
+        font-weight: bolder;
 
     }
   li.a{
@@ -326,14 +327,14 @@
         document.getElementsByClassName(".page-next")[0].href().trigger("click");
         console.log(document.getElementsByClassName("page-next")[0]);
     });
-    document.addEventListener('visibilitychange', function() {
-        if (document.hidden) {
-            //select the lock button and lock
-            var lock = document.getElementById("myLock");
-            lock.click();
-            console.log('Page is now hidden');
-        }
-    });
+    // document.addEventListener('visibilitychange', function() {
+    //     if (document.hidden) {
+    //         //select the lock button and lock
+    //         var lock = document.getElementById("myLock");
+    //         lock.click();
+    //         console.log('Page is now hidden');
+    //     }
+    // });
 
     // Timer countdown
 

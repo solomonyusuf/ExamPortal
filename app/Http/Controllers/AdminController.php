@@ -9,6 +9,7 @@ use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Symfony\Component\Console\Question\Question;
@@ -28,7 +29,8 @@ class AdminController extends Controller
         if(auth()->attempt(array('email' => $input['email'], 'password' => $input['password'])))
         {
             $user = auth()->user();
-
+            if(!Cookie::has('authorize'))
+                Cookie::queue('authorize', Carbon::now(), 5000);
             if($user->role == 'staff' || $user->role == 'superadmin' && $user->locked == false)
             {
                 alert()->success('Login Successful','your login attempt was successful.');
