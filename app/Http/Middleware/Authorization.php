@@ -17,11 +17,11 @@ class Authorization
      */
     public function handle(Request $request, Closure $next): Response
     {
-        $sess_auth = Cookie::get('sess_auth');
-
-        if(Carbon::parse($sess_auth)->addHour(3) > Carbon::now())
+//        $sess_auth = Cookie::get('sess_auth');
+//
+//        if(Carbon::parse($sess_auth)->addHour(3) > Carbon::now())
            return $next($request);
 
-        return redirect()->route('authorize');
+        //return redirect()->route('authorize');
     }
 }
