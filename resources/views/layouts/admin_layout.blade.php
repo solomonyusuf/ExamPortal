@@ -30,8 +30,7 @@
     <!-- dropzone css -->
     <link rel="stylesheet" href="{{asset('/admin/assets/libs/dropzone/dropzone.css')}}" type="text/css" />
 
-    <link rel="stylesheet" href="//cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js">
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="{{asset('/assets/jquery.dataTables.min.css')}}">
 
 
 </head>
@@ -1075,14 +1074,14 @@
     button{margin:3px;}
 </style>
 <!-- JAVASCRIPT -->
-<script src="https://code.jquery.com/jquery-3.7.0.js"></script>
-<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
-<script src="https://cdn.datatables.net/buttons/2.4.1/js/dataTables.buttons.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
-<script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.html5.min.js"></script>
-<script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.print.min.js"></script>
+<script src="{{asset('/assets/jquery-3.7.1.min.js')}}"></script>
+<script src="{{asset('/assets/jquery.dataTables.min.js')}}"></script>
+<script src="{{asset('/assets/dataTables.buttons.min.js')}}"></script>
+<script src="{{asset('/assets/jszip.min.js')}}"></script>
+<script src="{{asset('/assets/pdfmake.min.js')}}"></script>
+<script src="{{asset('/assets/vfs_fonts.js')}}"></script>
+{{--<script src="https://cdn.net/buttons/2.4.1/js/buttons.html5.min.js"></script>--}}
+<script src="{{asset('/assets/buttons.print.min.js')}}"></script>
 
 <script src="{{ asset('/admin/assets/libs/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
 <script src="{{ asset('/admin/assets/libs/simplebar/simplebar.min.js')}}"></script>
@@ -1096,7 +1095,7 @@
 
 <!-- App js -->
 <script src="{{ asset('admin/assets/js/app.js')}}"></script>
-<script src="//cdn.ckeditor.com/4.14.1/standard/ckeditor.js"></script>
+<script src="{{asset('/assets/ckeditor.js')}}"></script>
 <script>
     CKEDITOR.replace( 'description',{
         filebrowserUploadUrl: "{{route('uploadimage', ['_token' => csrf_token() ])}}",

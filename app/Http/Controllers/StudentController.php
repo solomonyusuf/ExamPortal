@@ -44,23 +44,10 @@ class StudentController extends Controller
                 return redirect()->route('no_exam');
             }
 
-            $attempt = \App\Models\QuizAttempt::where([['quiz_id', $exam?->id], ['users_id', auth()->user()?->id]])->first();
-            if($attempt)
-            {
-                session()->put('attempt_id', $attempt->id);
-                if(!$exam?->open)
-                {
-                    return redirect()->route('finished');
-                }
-                else
-                {
-                    if(!request()->page)
-                     {
-                         alert()->success('Exam Resumed', 'Your exam has been resumed');
-                        return redirect()->route('current_exam');
-                    }
-                }
-            }
+            $result = \App\Models\QuizResult::where([['quiz_id', $exam?->id], ['users_id', auth()->user()?->id]])->first();
+            if($result) return redirect()->route('finished');
+
+
 
             if($user->role == 'student' && $user->locked == false)
             {
