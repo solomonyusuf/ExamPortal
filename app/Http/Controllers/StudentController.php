@@ -190,7 +190,7 @@ class StudentController extends Controller
             $quiz->total_point = ($questions->count() * $quiz->points);
             $quiz->save();
 
-            $percentage = ($score * 100)/$quiz->total_point;
+            $percentage = ($score * 100)/($questions->count() * $quiz->points);
 
             QuizResult::create(array(
                 'quiz_id'=> $id ,

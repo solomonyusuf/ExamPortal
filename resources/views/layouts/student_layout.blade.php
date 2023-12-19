@@ -10,6 +10,7 @@
    <!-- font-awesome -->
     <link rel="stylesheet" href="{{asset('/assets/all.min.css')}}">
     <link rel="stylesheet" href="{{asset('/assets/bootstrap.min.css')}}" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{asset('/assets/fontawesome.min.css')}}" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <!-- Bootstrap-5 -->
     <link rel="stylesheet" href="{{asset('assets/css/bootstrap.min.css')}}">
     <link rel="stylesheet" href="{{asset('jquery.paginate.css')}}">

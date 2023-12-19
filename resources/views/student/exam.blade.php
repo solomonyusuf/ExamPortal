@@ -26,7 +26,7 @@
                         <img style="height:50px;" src="{{asset('assets/images/quiz.png')}}" alt="BeRifma"></div>
                 </div>
 
-                <div class="card" style="margin-bottom:80px;">
+                <div class="card" style="margin-bottom:80px;border:solid;padding:10px;border-width:4px;border-color: #f38535;">
                     <div class="card-body">
                         <div class="card-title">
                             <img src="{{asset($user->image)}}" style="height:150px;border-radius:20px;" />
@@ -68,7 +68,7 @@
 
                        </div>
                 </div>
-                <div class="card mb-4">
+                <div style="border:solid;padding:10px;border-width:4px;border-color: #f38535;" class="card mb-4">
                     <div class="card-body">
                         <h2 id="timeRemaining">00 : 00</h2>
                     </div>
@@ -77,14 +77,15 @@
         </div>
         <div class=" col-md-9">
 
-            <div class="" style="margin:5px;" >
-                <div class="card mb-4">
+            <div class=""  >
+                <div class="card mb-4" style="border:solid;padding:10px;border-width:4px;border-color: #f38535;">
                     <div class="card-body">
                         <h2 id="timeRemaining2">00 : 00</h2>
 
                     </div>
                 </div>
-                <ul class="no-bullets card card-body" id="love">
+                <div class="card" style="border:solid;padding:10px;border-width:4px;border-color: #f38535;">
+                <ul class="no-bullets  card-body" id="love">
                 @foreach($questions as $data)
                         <li>
                     <?php
@@ -141,8 +142,8 @@
                                                 <nav class="paginate-pagination paginate-pagination-0" data-parent="0">
                                                     <ul>
 
-                                                        <li><a href="#" data-page="prev" class="page page-prev" style="color:white;background-color: #00909d;"> «</a></li>
-                                                        <li><a href="#" data-page="next" class="page page-next" style="color:white;background-color: #00909d;"> »</a></li>
+                                                        <li><a href="#" data-page="prev" class="page page-prev" style="color:white;background-color:#f38535;"> «</a></li>
+                                                        <li><a href="#" data-page="next" class="page page-next" style="color:white;background-color:#f38535;"> »</a></li>
                                                     </ul>
                                                 </nav>
                                             </div>
@@ -268,6 +269,7 @@
 
 
                 </ul>
+                </div>
             </form>
             <form action="{{route('lock_exam', $quiz->id)}}" method="get">
                 @csrf
@@ -280,6 +282,7 @@
         </form>
 </main>
 <style>
+    .card{}
     .paginate-pagination{
         font-size:x-large;
         font-weight: bolder;

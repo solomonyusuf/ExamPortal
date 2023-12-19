@@ -126,11 +126,11 @@ main
     height: 100%;
 }
 
-  
+
 
 .step-number
 {
-    background-color: var(--primary-color);
+    background-color:#f38535;
     border-radius: 50px;
     width: 156px;
     height: 41px;
@@ -154,7 +154,7 @@ main
 }
 .borderc
 {
-    border: solid 1px rgb(221, 221, 221);
+    border: solid 3px #f38535;
     border-left: 0;
     border-right: 0;
     padding-top: 30px;
@@ -197,7 +197,7 @@ main
     height: 63px;
 }
 .child1 span
-{  
+{
     color: rgb(249, 183, 27);
     background-color: rgb(255, 244, 218);
 }
@@ -209,14 +209,14 @@ main
 .child3 span
 {
     color: rgb(136, 127, 180);
-    background-color: rgb(238, 236, 252);   
+    background-color: rgb(238, 236, 252);
 }
 .child4 span
 {
     color: rgb(16, 221, 249);
-    background-color: rgb(229, 251, 254);   
+    background-color: rgb(229, 251, 254);
 }
-  
+
 
 .radio-field input
 {
@@ -235,7 +235,7 @@ main
 }
 .radio-field input::before, .radio-field-2 input::before
 {
-    content: "\f00c";
+    content: "✓";
     font-family: "Font Awesome 5 Free";
     font-weight: 900;
     text-align: center;
@@ -250,7 +250,7 @@ main
     width: 25px;
     height: 25px;
     display: none;
-}  
+}
 .radio-field input:checked
 {
     border: solid 2px transparent;
@@ -309,7 +309,7 @@ main
     font-weight: bold;
     transition: 0.4s;
     overflow: hidden;
-    position: relative;  
+    position: relative;
 }
 
 .next-prev button span
@@ -334,7 +334,7 @@ main
     height: 100%;
     background-color: var(--secondary-color-2);
     clip-path: circle(0.0% at 50% 50%);
-    
+
 }
 .next-prev button:hover::before
 {
@@ -374,7 +374,7 @@ main
 {
     top: 10px;
     right: 10px;
-}  
+}
 .radio-field-2 input:checked::before
 {
     display: block;
@@ -430,7 +430,7 @@ main
     color: var(--secondary-color);
     font-weight: bold;
     margin-bottom: 20px;
-  
+
 }
 .sub-text
 {
@@ -486,7 +486,7 @@ main
     text-align: center;
     font-size: 14px;
     line-height: 27px;
-    color: var(--field-color);  
+    color: var(--field-color);
   }
 
 .social
@@ -500,8 +500,8 @@ main
     height: 83px;
     font-size: 18px;
     color: rgb(60, 60, 60);
-    padding-left: 30px; 
-    position: relative; 
+    padding-left: 30px;
+    position: relative;
     transition: 0.4s;
     margin-bottom: 50px;
     cursor: pointer;
@@ -524,7 +524,7 @@ main
     top: 0px;
     right: 30px;
     pointer-events: none;
-      
+
 }
 
 .thankyou .move
@@ -542,9 +542,9 @@ main
 {
     font-size: 20px;
     font-family: "Jost";
-    color: rgb(9, 9, 9);  
+    color: rgb(9, 9, 9);
     margin-top: 20px;
-    display: block;  
+    display: block;
 }
 .thankyou-text
 {
@@ -569,7 +569,7 @@ main
 {
     font-size: 24px;
     color: var(--secondary-color);
-    font-weight: bold; 
+    font-weight: bold;
 }
 .contact img
 {
