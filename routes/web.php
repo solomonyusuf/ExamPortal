@@ -52,6 +52,7 @@ Route::get('/logout', [AdminController::class, 'logout'])->name('logout');
 Route::middleware(['auth:sanctum','user_access', 'authorize'])->group(function () {
     //------PAGES--------------------------------------
     Route::get('/dashboard', [PagesController::class, 'admin_dashboard'])->name('admin_dashboard');
+    Route::get('/view_instruction', [PagesController::class, 'view_instruction'])->name('view_instruction');
     //EXAM
     Route::get('/ongoing/exams', [PagesController::class, 'ongoing_exams'])->name('ongoing_exams');
     Route::get('/concluded/exams', [PagesController::class, 'concluded_exams'])->name('concluded_exams');
@@ -78,6 +79,7 @@ Route::middleware(['auth:sanctum','user_access', 'authorize'])->group(function (
     // EDITOR
     Route::post('/upload-image',[AdminController::class, 'admin_upload'])->name('uploadimage');
     //EXAM
+    Route::post('/modify_instruction', [AdminController::class, 'modify_instruction'])->name('modify_instruction');
     Route::post('/add/exam', [AdminController::class, 'add_exam'])->name('add_exam');
     Route::post('/update/exam', [AdminController::class, 'update_exam'])->name('update_exam');
     Route::get('/delete/exam/{id}', [AdminController::class, 'delete_exam'])->name('delete_exam');
@@ -106,12 +108,14 @@ Route::middleware(['auth:sanctum','user_access', 'authorize'])->group(function (
 
 //STUDENT
 Route::middleware(['auth:sanctum', 'authorize'])->group(function () {
+    Route::get('/instruction', [PagesController::class, 'instruction'])->name('instruction');
     Route::get('/exams', [PagesController::class, 'current_exam'])->name('current_exam');
     Route::get('/exam-locked', [PagesController::class, 'exam_locked'])->name('exam_locked');
     Route::get('/no-exam', [PagesController::class, 'no_exam'])->name('no_exam');
     Route::get('/finished', [PagesController::class, 'finished'])->name('finished');
 
     // REQUESTS
+    Route::post('/start/{id}', [StudentController::class, 'start'])->name('start');
     Route::post('/exams', [StudentController::class, 'respond'])->name('respond');
     Route::post('/submit-exam/{id}', [StudentController::class, 'submit'])->name('submit');
     Route::get('/clear-choice/{id}', [StudentController::class, 'clear_choice'])->name('clear_choice');

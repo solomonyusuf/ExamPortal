@@ -62,6 +62,14 @@ class PagesController extends Controller
 
 
    //----------EXAMS- ----------------
+    public function instruction()
+    {
+        return view('student.instruction');
+    }
+    public function view_instruction()
+    {
+        return view('admin.exams.add_instruction');
+    }
    public function ongoing_exams()
    {
        return view('admin.exams.ongoing');

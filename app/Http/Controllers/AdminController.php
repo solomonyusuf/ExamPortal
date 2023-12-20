@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Instruction;
 use App\Models\Quiz;
 use App\Models\QuizQuestion;
 use App\Models\StudentClass;
@@ -55,6 +56,24 @@ class AdminController extends Controller
         Auth::logout();
         toast('Logout sucessful', 'success');
         return redirect()->route('welcome');
+    }
+
+    public function modify_instruction(Request $request)
+    {
+        try
+        {
+            Instruction::find($request->id)->update(array(
+                'content'=> $request['content']
+            ));
+            toast('Success', 'success');
+            return redirect()->back();
+        }
+        catch(\Exception $exception)
+        {
+            error_log($exception);
+            toast("An error Occured", 'error');
+            return redirect()->back();
+        }
     }
     //EXAM
     public function add_exam(Request $request)

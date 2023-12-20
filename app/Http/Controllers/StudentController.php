@@ -52,8 +52,8 @@ class StudentController extends Controller
             if($user->role == 'student' && $user->locked == false)
             {
                 session()->put('exam_id', $exam->id);
-                alert()->success('Welcome '."{$user->first_name}",'your login attempt was successful.');
-                return redirect()->route('current_exam');
+                alert()->success('Welcome '."{$user->first_name}",'please read the following instructions carefully.');
+                return redirect()->route('instruction');
             }
             else
             {
@@ -115,6 +115,24 @@ class StudentController extends Controller
             $response->delete();
 
             toast('Response removed', 'success');
+        }
+        catch(\Exception $exception)
+        {
+            error_log($exception);
+            toast('An error occured', 'error');
+            return redirect()->back();
+        }
+
+        return redirect()->back();
+
+    }
+    public static function start($id)
+    {
+        try
+        {
+            $user = auth()->user();
+            alert()->success('Welcome '."{$user->first_name}",'Your exam has commenced.');
+            return redirect()->route('current_exam');
         }
         catch(\Exception $exception)
         {

@@ -12,7 +12,7 @@ $user = auth()->user();?>
                     <div class="logo-icon">
                         <img style="height:50px;" src="{{asset('assets/images/quiz.png')}}" alt="BeRifma"></div>
                 </div>
-                <div class="card" style="margin-top:40px;">
+                <div class="card" style="margin-bottom:80px;border:solid;padding:10px;border-width:4px;border-color: #f38535;">
                     <div class="card-body">
                         <div class="card-title">
                             <img src="{{asset($user->image)}}" style="height:150px;border-radius:20px;" />
@@ -22,7 +22,7 @@ $user = auth()->user();?>
                     </div>
                 </div>
                 <br/>
-                <a href="{{route('logout')}}" class="btn btn-info">
+                <a href="{{route('logout')}}" class="btn step-number">
                     Logout
                 </a>
             </div>
@@ -36,7 +36,8 @@ $user = auth()->user();?>
                         <div class="step-inner">
                             <!-- Step 1 Heading  -->
                             <div class="main-heading">
-                                No Available Exam
+                                <h1 style="font-size:100px;color:#f38535;">No</h1><br/>
+                                <h1 style="font-size:100px;color:#f38535;">Exam</h1>
                             </div>
                         </div>
                     </section>
